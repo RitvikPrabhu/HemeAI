@@ -12,14 +12,14 @@ import os
 class TFNet(object):
 
 	_TRAINER = dict({
-		'rmsprop': tf.train.RMSPropOptimizer,
-		'adadelta': tf.train.AdadeltaOptimizer,
-		'adagrad': tf.train.AdagradOptimizer,
-		'adagradDA': tf.train.AdagradDAOptimizer,
-		'momentum': tf.train.MomentumOptimizer,
-		'adam': tf.train.AdamOptimizer,
-		'ftrl': tf.train.FtrlOptimizer,
-		'sgd': tf.train.GradientDescentOptimizer
+		'rmsprop': tf.keras.optimizers.RMSprop,
+		'adadelta': tf.keras.optimizers.Adadelta,
+		'adagrad': tf.keras.optimizers.Adagrad,
+		'adagradDA': tf.compat.v1.train.AdagradDAOptimizer,
+		'momentum': tf.compat.v1.train.MomentumOptimizer,
+		'adam':  tf.optimizers.Adam,
+		'ftrl': tf.compat.v1.train.FtrlOptimizer,
+		'sgd': tf.keras.optimizers.SGD
 	})
 
 	# imported methods

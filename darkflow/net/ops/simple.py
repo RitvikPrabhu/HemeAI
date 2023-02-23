@@ -1,4 +1,5 @@
-import tensorflow.contrib.slim as slim
+# import tensorflow.contrib.slim as slim
+import tf_slim as slim
 from .baseop import BaseOp
 import tensorflow as tf
 from distutils.version import StrictVersion
