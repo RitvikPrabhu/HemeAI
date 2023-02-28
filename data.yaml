@@ -1,0 +1,10 @@
+dir: ./datasets/data
+train: data/Training/images/
+val:  data/Validation/images/
+test: data/Testing/images/
+
+# number of classes
+nc: 3
+
+# class names
+names: ["RBC","WBC", "Platelets"]
