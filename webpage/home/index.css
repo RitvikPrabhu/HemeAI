@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* set the minimum height of the body to the viewport height */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+
+  
+  /* background-image: url("blood_background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a {
+  color: #fff;
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  background-color: #555;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 200px;
+  text-align: center;
+
+}
+
+h1 {
+  font-size: 12em;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+.cta-btn {
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  display: inline-block;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.cta-btn:hover {
+  background-color: #2980b9;
+  cursor: pointer;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  margin-top: auto; /* push the footer to the bottom of the page */
+}
