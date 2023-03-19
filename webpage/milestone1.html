@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>CBC Test Automation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='milestone1.css') }}">
+    
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="milestone1.html">Milestone 1</a></li>
+          <li><a href="#">Milestone 2</a></li>
+        </ul>
+      </nav>
+    </header>
+    <h1>Milestone 1</h1>
+    
+    <form>
+      <label for="file" id="file-label">Click to Upload Blood Sample Image</label>
+      <input type="file" id="file" name="imageUpload" accept="image/*" style="display: none;" onchange="loadFile(event)">
+      <img id="output" width="100"/>
+    </form>	
+    
+
+    <script>
+      var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    </script>
+
+    <button type="button" class="process-image-button" onclick="buttonEvent()">Process Input</button>
+
+    <table style="border-collapse: collapse;" id="ratios">
+      <tr>
+        <th style="text-align:center">Cell Type</th>
+        <th style="text-align:center">Ratio</th>
+      </tr>
+      <tr>
+        <td style="border: none; text-align:center">RBC</td>
+        <td style="border: none; text-align:center" id="rbcVal"></td>
+      </tr>
+      <tr>
+        <td style="border: none; text-align:center">WBC</td>
+        <td style="border: none; text-align:center" id="wbcVal"></td>
+      </tr>
+      <tr>
+        <td style="border: none; text-align:center">Platelets</td>
+        <td style="border: none; text-align:center" id="plateletsVal"></td>
+      </tr>
+    </table>
+
+    <script>
+      // var loadFile = function(event) {
+      //   var image = document.getElementById('output');
+      //   image.src = URL.createObjectURL(event.target.files[0]);
+      // };
+    
+      var buttonEvent = function() {
+      var image = document.getElementById('file').files[0];
+      if (image) {
+        // Make a POST request to the server
+        var formData = new FormData();
+        formData.append('image', image);
+        fetch('/metrics', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Update the HTML elements
+          document.getElementById('rbcVal').innerHTML = data.RBC.toFixed(2);
+          document.getElementById('wbcVal').innerHTML = data.WBC.toFixed(2);
+          document.getElementById('plateletsVal').innerHTML = data.Platelets.toFixed(2);
+        })
+        .catch(error => console.error(error));
+
+        clearElemsAndAddTable();
+      } else {
+        alert('Please upload an image to process first');
+      }
+    };
+
+      var clearElemsAndAddTable = function() {
+        var image = document.getElementById('file').files[0];
+        if (image) {
+          var form = document.getElementsByTagName('form')[0];
+          var button = document.getElementsByClassName('process-image-button')[0];
+          form.parentNode.removeChild(form);
+          button.parentNode.removeChild(button);
+
+          const myTable = document.getElementById('ratios');
+          myTable.style.display = 'table';
+          return true
+        } else {
+          alert('Please upload an image to process first');
+          return false
+        }
+      };
+    </script>
+
+    <footer>
+      <p>Project Done By Team 3: Ritvik Prabhu, Amrita Ballurkar, Bhargav Iyer</p>
+    </footer>
+  </body>
+</html>
