@@ -53,11 +53,9 @@
       </tr>
     </table>
 
+    <img id="result_image" style="display:none;" />
+
     <script>
-      // var loadFile = function(event) {
-      //   var image = document.getElementById('output');
-      //   image.src = URL.createObjectURL(event.target.files[0]);
-      // };
     
       var buttonEvent = function() {
       var image = document.getElementById('file').files[0];
@@ -75,6 +73,19 @@
           document.getElementById('rbcVal').innerHTML = data.RBC.toFixed(2);
           document.getElementById('wbcVal').innerHTML = data.WBC.toFixed(2);
           document.getElementById('plateletsVal').innerHTML = data.Platelets.toFixed(2);
+        })
+        .catch(error => console.error(error));
+
+        var formData = new FormData();
+        formData.append('image', image);
+        fetch('/image', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('result_image').src = data.image_url; // update the image src
+          document.getElementById('result_image').style.display = 'block'; // show the image
         })
         .catch(error => console.error(error));
 

@@ -191,3 +191,10 @@ tr:hover {
     text-transform: uppercase;
   }
 }
+
+#result_image {
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+  /* max-width: 50%; */
+}
