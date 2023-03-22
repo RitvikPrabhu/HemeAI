@@ -1,3 +1,6 @@
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
 import time
 import ultralytics
 from ultralyticsplus import YOLO, render_result
@@ -11,16 +14,17 @@ app = Flask(__name__, template_folder='./')
 app.static_folder = './'
 app.config['UPLOAD_FOLDER'] = './'
 
-
-@app.route('/')
+@app.route("/")
 def home():
     return render_template('index.html')
-
 
 @app.route('/milestone1.html')
 def milestone():
     return render_template('/milestone1.html')
 
+@app.route('/diseasedetection.html')
+def diseasedetection():
+    return render_template('/diseasedetection.html')
 
 @app.route('/metrics', methods=['POST'])
 def get_metrics():
@@ -63,7 +67,6 @@ def get_metrics():
 
     return json.dumps(results)
 
-
 @app.route('/image', methods=['POST'])
 def get_image():
     app.logger.info('Received a request to /image')
@@ -96,7 +99,3 @@ def get_image():
             os.remove(image)
 
     return json.dumps({'image_url': url_for('static', filename='render.jpg')})
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

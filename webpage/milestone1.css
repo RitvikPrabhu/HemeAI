@@ -1,29 +1,32 @@
-* {
-  box-sizing: border-box;
+:root{
+  --bgcolor: rgb(117, 24, 24);
+}
+
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background-color: lightcoral;
+  background-color: var(--bgcolor);
 }
 
 header {
-  background-color: #333;
+  position: fixed;
+  width: 100%;
+  background-color: var(--bgcolor);
   color: #fff;
-  padding: 10px 20px;
 }
 
 nav ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 nav ul li {
@@ -33,13 +36,15 @@ nav ul li {
 nav ul li a {
   color: #fff;
   display: block;
-  padding: 10px 20px;
+  padding: 5px 10px;
   text-decoration: none;
 }
 
 nav ul li a:hover {
-  background-color: #555;
+  background-color: #34343453;
 }
+
+
 
 main {
   display: flex;
@@ -57,15 +62,17 @@ form {
   display: flex; 
   flex-direction: column; 
   align-items: center;
+  padding: 20px;
 }
 
 
 h1 {
   font-size: 3em;
-  margin-top: 0;
   display: flex;
-  color: black;
-  padding: 20px;
+  color: white;
+
+  padding: 15px;
+  padding-left: 45px;
 }
 
 p {
@@ -73,13 +80,13 @@ p {
 }
 
 .cta-btn {
-  background-color: #3498db;
+  background-color: #2980b9;
   border: none;
   border-radius: 5px;
   color: #fff;
   display: inline-block;
   font-size: 1.2em;
-  padding: 10px 20px;
+  padding: 10px;
   text-decoration: none;
 }
 
@@ -89,7 +96,11 @@ p {
 }
 
 footer {
-  background-color: #333;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--bgcolor);
   color: #fff;
   padding: 10px 20px;
   text-align: center;
@@ -99,17 +110,15 @@ footer {
 
 .process-image-button {
   display: inline-block;
-  width: 15vw;
-  height: 5vh;
   padding: 12px 24px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
   background-color: #3498db;
   color: #fff;
-  border-radius: 4px;
-  border: 2px solid #3498db;
+  border-radius: 1px;
+  border: 1px solid #3498db;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   margin: 0 auto;
@@ -196,5 +205,6 @@ tr:hover {
   display: block;
   margin: auto;
   padding-top: 20px;
+  padding-bottom: 20px;
   /* max-width: 50%; */
 }
