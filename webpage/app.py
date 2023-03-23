@@ -14,18 +14,22 @@ app = Flask(__name__, template_folder='./')
 app.static_folder = './'
 app.config['UPLOAD_FOLDER'] = './'
 
+# home page
 @app.route("/")
 def home():
     return render_template('index.html')
 
+# page for Milestone 1 (AutoCBC)
 @app.route('/milestone1.html')
 def milestone():
     return render_template('/milestone1.html')
 
+# page where Milestone 2 will go (Disease Detection)
 @app.route('/diseasedetection.html')
 def diseasedetection():
     return render_template('/diseasedetection.html')
 
+# sends results of the cell detection to the website
 @app.route('/metrics', methods=['POST'])
 def get_metrics():
     print('Received a POST request to /metrics')
@@ -53,9 +57,9 @@ def get_metrics():
             if model.names[int(c)] in blood_count.keys():
                 blood_count[model.names[int(c)]] += 1
 
-    results = {"RBC": blood_count['RBC'] / sum(blood_count.values()),
-               "WBC": blood_count['WBC'] / sum(blood_count.values()),
-               "Platelets": blood_count['Platelets'] / sum(blood_count.values())}
+    results = {"RBC": blood_count['RBC'] / sum(blood_count.values()) * 100,
+               "WBC": blood_count['WBC'] / sum(blood_count.values()) * 100,
+               "Platelets": blood_count['Platelets'] / sum(blood_count.values()) * 100}
 
     try:
         if os.path.isfile(image):

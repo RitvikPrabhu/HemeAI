@@ -17,44 +17,52 @@
       </nav>
     </header>
     <h1>AutoCBC</h1>
-
     
-
-    <form action="#" method="post" enctype="multipart/form-data">
-      <label for="file" id="file-label"></label>
-      <input type="file" id="image" name="imageUpload" accept="image/*" style="display: none;" onchange="loadFile(event)">
+    <!-- <form>
+      <label for="file" id="file-label">Click to Upload Blood Sample Image</label>
+      <input type="file" id="file" name="imageUpload" accept="image/*" style="display: none;" onchange="loadFile(event)">
       <img id="output" width="100"/>
-      <button type="button" class="process-image-button" onclick="document.getElementById('image').click();">Choose Image</button>
+    </form>	 -->
+
+    <form>
+      <label for="file" id="file-label"></label>
+      <input type="file" id="file" name="imageUpload" accept="image/*" style="display: none;" onchange="loadFile(event)">
+      <img id="output" width="100"/>
+      <button type="button" class="process-image-button" onclick="document.getElementById('file').click();">Choose Image</button>
       <br>
     </form>
     
-
 
     <script>
       var loadFile = function(event) {
         var image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
+        document.getElementById("processButton").style.display = "block";
       };
     </script>
 
-    <button type="button" class="process-image-button" onclick="buttonEvent()">Process Input</button>
+    <button type="button" class="process-image-button"  id= 'processButton'  style="display: none;" onclick="buttonEvent()">Process Input</button>
 
     <table style="border-collapse: collapse;" id="ratios">
       <tr>
         <th style="text-align:center">Cell Type</th>
-        <th style="text-align:center">Ratio</th>
+        <th style="text-align:center">Percentage</th>
+        <th style="text-align:center">Normal Range</th>
       </tr>
       <tr>
         <td style="border: none; text-align:center">RBC</td>
         <td style="border: none; text-align:center" id="rbcVal"></td>
+        <td style="border: none; text-align:center"> 93 - 97</td>
       </tr>
       <tr>
         <td style="border: none; text-align:center">WBC</td>
         <td style="border: none; text-align:center" id="wbcVal"></td>
+        <td style="border: none; text-align:center">0.5 - 2</td>
       </tr>
       <tr>
         <td style="border: none; text-align:center">Platelets</td>
         <td style="border: none; text-align:center" id="plateletsVal"></td>
+        <td style="border: none; text-align:center">1 - 3</td>
       </tr>
     </table>
 
@@ -62,8 +70,8 @@
 
     <script>
     
-      var buttonEvent = function() {
-      var image = document.getElementById('image').files[0];
+      var buttonEvent = function() {      
+      var image = document.getElementById('file').files[0];
       if (image) {
         // Make a POST request to the server
         var formData = new FormData();
@@ -96,9 +104,7 @@
 
         clearElemsAndAddTable();
       } else {
-        if(!image){ 
-          alert('Please upload an image to process first');
-        }        
+        alert('Please upload an image to process first');
       }
     };
 
@@ -107,6 +113,7 @@
         if (image) {
           var form = document.getElementsByTagName('form')[0];
           var button = document.getElementsByClassName('process-image-button')[0];
+          document.getElementById("processButton").style.display = "none";
           form.parentNode.removeChild(form);
           button.parentNode.removeChild(button);
 
@@ -121,7 +128,7 @@
     </script>
 
     <footer>
-      <p>Project Done By Team 3: Ritvik Prabhu, Amrita Ballurkar, Bhargav Iyer</p>
+      <p>Team 3: Ritvik Prabhu, Amrita Ballurkar, Bhargav Iyer</p>
     </footer>
   </body>
 </html>
