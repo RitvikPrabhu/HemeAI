@@ -17,31 +17,34 @@
       </nav>
     </header>
     <h1>AutoCBC</h1>
-    
-    <!-- <form>
-      <label for="file" id="file-label">Click to Upload Blood Sample Image</label>
-      <input type="file" id="file" name="imageUpload" accept="image/*" style="display: none;" onchange="loadFile(event)">
-      <img id="output" width="100"/>
-    </form>	 -->
 
-    <form>
+    <form action="/metrics">
       <label for="file" id="file-label"></label>
-      <input type="file" id="file" name="imageUpload" accept="image/*" style="display: none;" onchange="loadFile(event)">
-      <img id="output" width="100"/>
-      <button type="button" class="process-image-button" onclick="document.getElementById('file').click();">Choose Image</button>
+      <input type="file" id="file" name="image" accept="image/*" style="display: none;" onchange="loadFiles(event)" multiple>
+      <button type="button" class="process-image-button" onclick="document.getElementById('file').click();">Choose Image(s)</button>
       <br>
     </form>
     
-
     <script>
-      var loadFile = function(event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
+      var loadFiles = function(event) {
+        var images = document.getElementById('output');
+        for (var i = 0; i < event.target.files.length; i++) {
+          var image = document.createElement('img');
+          image.src = URL.createObjectURL(event.target.files[i]);
+          image.width = 100;
+          images.appendChild(image);
+        }
         document.getElementById("processButton").style.display = "block";
+        document.getElementById("successMessage").style.display = "block";
       };
     </script>
+    
+    <img id="output" />
 
-    <button type="button" class="process-image-button"  id= 'processButton'  style="display: none;" onclick="buttonEvent()">Process Input</button>
+    <p id="successMessage" style="display:none;color: rgb(0, 255, 0);text-align: center; font-family: 'Segoe UI', sans-serif; font-weight: bold;">Images have been successfully uploaded</p>
+
+    
+    <button type="button" class="process-image-button"  id= "processButton"  style="display: none;" onclick="buttonEvent()">Process Input</button>
 
     <table style="border-collapse: collapse;" id="ratios">
       <tr>
@@ -69,13 +72,16 @@
     <img id="result_image" style="display:none;" />
 
     <script>
-    
-      var buttonEvent = function() {      
-      var image = document.getElementById('file').files[0];
-      if (image) {
+
+    var buttonEvent = function() {      
+      var images = document.getElementById('file').files;
+      if (images.length > 0) {
+        clearElemsAndAddTable();
         // Make a POST request to the server
         var formData = new FormData();
-        formData.append('image', image);
+        for (var i = 0; i < images.length; i++) {
+          formData.append('image', images[i]);
+        }
         fetch('/metrics', {
           method: 'POST',
           body: formData
@@ -89,24 +95,27 @@
         })
         .catch(error => console.error(error));
 
-        var formData = new FormData();
-        formData.append('image', image);
+        var formData2 = new FormData();
+        for (var i = 0; i < images.length; i++) {
+          formData2.append('image', images[i]);
+        }
         fetch('/image', {
           method: 'POST',
-          body: formData
+          body: formData2
         })
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('result_image').src = data.image_url; // update the image src
-          document.getElementById('result_image').style.display = 'block'; // show the image
+        .then(response => response.blob())
+        .then(blob => {
+          // Create a new URL for the blob object
+          var url = URL.createObjectURL(blob);
+
+          // Update the HTML element
+          var resultImage = document.getElementById('result_image');
+          resultImage.src = url;
+          resultImage.style.display = 'block';
         })
         .catch(error => console.error(error));
-
-        clearElemsAndAddTable();
-      } else {
-        alert('Please upload an image to process first');
       }
-    };
+    }
 
       var clearElemsAndAddTable = function() {
         var image = document.getElementById('file').files[0];
@@ -114,6 +123,7 @@
           var form = document.getElementsByTagName('form')[0];
           var button = document.getElementsByClassName('process-image-button')[0];
           document.getElementById("processButton").style.display = "none";
+          document.getElementById("successMessage").style.display = "none";
           form.parentNode.removeChild(form);
           button.parentNode.removeChild(button);
 

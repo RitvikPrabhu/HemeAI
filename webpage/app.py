@@ -29,7 +29,7 @@ def milestone():
 def diseasedetection():
     return render_template('/diseasedetection.html')
 
-# sends results of the cell detection to the website
+
 @app.route('/metrics', methods=['POST'])
 def get_metrics():
     print('Received a POST request to /metrics')
@@ -43,63 +43,81 @@ def get_metrics():
     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
     model.overrides['max_det'] = 1000  # maximum number of detections per image
 
-    image_file = request.files['image']
+    # get the uploaded images
+    images = request.files.getlist('image')
 
-    # save the file to a location on your server
-    image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
-    image_file.save(image)
 
-    results = model.predict(image, stream=True)
     blood_count = {"RBC": 0, "WBC": 0, "Platelets": 0}
 
-    for r in results:
-        for c in r.boxes.cls:
-            if model.names[int(c)] in blood_count.keys():
-                blood_count[model.names[int(c)]] += 1
 
+    for image_file in images:
+        # save the file to a location on your server
+        image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
+        image_file.save(image)
+
+        image_results = model.predict(image, stream=True)
+        
+
+        for r in image_results:
+            for c in r.boxes.cls:
+                if model.names[int(c)] in blood_count.keys():
+                    blood_count[model.names[int(c)]] += 1
+        # try:
+        #     if os.path.isfile(image):
+        #         os.remove(image)
+        # except PermissionError:
+        #     time.sleep(10)
+        #     if os.path.isfile(image):
+        #         os.remove(image)
     results = {"RBC": blood_count['RBC'] / sum(blood_count.values()) * 100,
-               "WBC": blood_count['WBC'] / sum(blood_count.values()) * 100,
-               "Platelets": blood_count['Platelets'] / sum(blood_count.values()) * 100}
+                       "WBC": blood_count['WBC'] / sum(blood_count.values()) * 100,
+                       "Platelets": blood_count['Platelets'] / sum(blood_count.values()) * 100}
 
-    try:
-        if os.path.isfile(image):
-            os.remove(image)
-    except PermissionError:
-        time.sleep(1)
-        if os.path.isfile(image):
-            os.remove(image)
+
 
     return json.dumps(results)
+
 
 @app.route('/image', methods=['POST'])
 def get_image():
     app.logger.info('Received a request to /image')
 
-    image_file = request.files['image']
+    # get list of uploaded images
+    images = request.files.getlist('image')
 
+    # load YOLO model
     model = YOLO('CBCWeights.pt')
-    # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
     model.overrides['max_det'] = 1000  # maximum number of detections per image
 
-    # save the file to a location on your server
-    image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
-    image_file.save(image)
+    results = []
+    for image_file in images:
+        # save the file to a location on your server
+        image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
+        image_file.save(image)
 
-    results = model.predict(image)
+        # run prediction on image
+        result = model.predict(image)
+        results.append(result)
 
-    render = render_result(model=model, image=image, result=results[0])
+        # remove image file from server
+        # try:
+        #     if os.path.isfile(image):
+        #         os.remove(image)
+        # except PermissionError:
+        #     time.sleep(1)
+        #     if os.path.isfile(image):
+        #         os.remove(image)
 
-    render.save(os.path.join(app.config['UPLOAD_FOLDER'], 'render.jpg'))
+    # render result images and save to server
+    for i, result in enumerate(results):
+        render = render_result(model=model, image=image, result=result[0])
+        render.save(os.path.join(app.config['UPLOAD_FOLDER'], f'render_{i}.jpg'))
 
-    try:
-        if os.path.isfile(image):
-            os.remove(image)
-    except PermissionError:
-        time.sleep(1)
-        if os.path.isfile(image):
-            os.remove(image)
+    return json.dumps({'image_urls': [url_for('static', filename=f'render_{i}.jpg') for i in range(len(results))]})
 
-    return json.dumps({'image_url': url_for('static', filename='render.jpg')})
+
+if __name__ == '__main__':
+    app.run()
