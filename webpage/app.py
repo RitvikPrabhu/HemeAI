@@ -1,6 +1,3 @@
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
 import time
 import ultralytics
 from ultralyticsplus import YOLO, render_result
@@ -78,45 +75,78 @@ def get_metrics():
     return json.dumps(results)
 
 
+# @app.route('/image', methods=['POST'])
+# def get_image():
+#     app.logger.info('Received a request to /image')
+
+#     # get list of uploaded images
+#     images = request.files.getlist('image')
+
+#     # load YOLO model
+#     model = YOLO('CBCWeights.pt')
+#     model.overrides['conf'] = 0.25  # NMS confidence threshold
+#     model.overrides['iou'] = 0.45  # NMS IoU threshold
+#     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
+#     model.overrides['max_det'] = 1000  # maximum number of detections per image
+
+#     results = []
+#     for image_file in images:
+#         # save the file to a location on your server
+#         image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
+#         image_file.save(image)
+
+#         # run prediction on image
+#         result = model.predict(image)
+#         results.append(result)
+
+#         # remove image file from server
+#         # try:
+#         #     if os.path.isfile(image):
+#         #         os.remove(image)
+#         # except PermissionError:
+#         #     time.sleep(1)
+#         #     if os.path.isfile(image):
+#         #         os.remove(image)
+
+#     # render result images and save to server
+#     for i, result in enumerate(results):
+#         render = render_result(model=model, image=image, result=result[0])
+#         render.save(os.path.join(app.config['UPLOAD_FOLDER'], f'render_{i}.jpg'))
+
+#     return json.dumps({'image_urls': [url_for('static', filename=f'render_{i}.jpg') for i in range(len(results))]})
+
 @app.route('/image', methods=['POST'])
 def get_image():
     app.logger.info('Received a request to /image')
 
-    # get list of uploaded images
-    images = request.files.getlist('image')
+    image_file = request.files['image']
 
-    # load YOLO model
     model = YOLO('CBCWeights.pt')
+    # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
     model.overrides['max_det'] = 1000  # maximum number of detections per image
 
-    results = []
-    for image_file in images:
-        # save the file to a location on your server
-        image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
-        image_file.save(image)
+    # save the file to a location on your server
+    image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
+    image_file.save(image)
 
-        # run prediction on image
-        result = model.predict(image)
-        results.append(result)
+    results = model.predict(image)
 
-        # remove image file from server
-        # try:
-        #     if os.path.isfile(image):
-        #         os.remove(image)
-        # except PermissionError:
-        #     time.sleep(1)
-        #     if os.path.isfile(image):
-        #         os.remove(image)
+    render = render_result(model=model, image=image, result=results[0])
 
-    # render result images and save to server
-    for i, result in enumerate(results):
-        render = render_result(model=model, image=image, result=result[0])
-        render.save(os.path.join(app.config['UPLOAD_FOLDER'], f'render_{i}.jpg'))
+    render.save(os.path.join(app.config['UPLOAD_FOLDER'], 'render.jpg'))
 
-    return json.dumps({'image_urls': [url_for('static', filename=f'render_{i}.jpg') for i in range(len(results))]})
+    try:
+        if os.path.isfile(image):
+            os.remove(image)
+    except PermissionError:
+        time.sleep(1)
+        if os.path.isfile(image):
+            os.remove(image)
+
+    return json.dumps({'image_url': url_for('static', filename='render.jpg')})
 
 
 if __name__ == '__main__':
