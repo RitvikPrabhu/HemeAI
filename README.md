@@ -1,5 +1,5 @@
 ## Replicate the environment
-conda env create -f environment.yml
+pip install -r requirements.txt
 
 ## Run the website
 
