@@ -2,11 +2,12 @@
 #     app.run(debug=True)
 
 import time
-import ultralytics
-from ultralyticsplus import YOLO, render_result
+
 import json
 from flask import Flask, request, render_template, url_for
 import os
+import ultralytics
+from ultralyticsplus import YOLO, render_result
 
 app = Flask(__name__, template_folder='./')
 
