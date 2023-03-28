@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Set the character encoding for the document -->
     <meta charset="UTF-8">
+    <!-- Set the title of the document -->
     <title>CBC Test Automation</title>
+    <!-- Link the stylesheet to the HTML document -->
     <link rel="stylesheet" href="{{ url_for('static', filename='milestone1.css') }}">
     
   </head>
   <body>
+    <!-- header section of the page, which contains a navigation bar -->
     <header>
       <nav>
         <ul>
@@ -16,15 +20,20 @@
         </ul>
       </nav>
     </header>
+    <!-- main content of the page -->
     <h1>AutoCBC</h1>
 
+    <!-- form that allows users to upload images of the cells and triggers the screen to change when a file is uploaded -->
     <form action="/metrics">
       <label for="file" id="file-label"></label>
+      <!-- input element that allows users to select one or more images to upload -->
       <input type="file" id="file" name="image" accept="image/*" style="display: none;" onchange="loadFiles(event)" multiple>
+      <!-- button that allows users to select images to upload -->
       <button type="button" class="process-image-button" onclick="document.getElementById('file').click();">Choose Image(s)</button>
       <br>
     </form>
     
+    <!-- script that defines a function to be called when an image is uploaded -->
     <script>
       var loadFiles = function(event) {
         var images = document.getElementById('output');
@@ -34,18 +43,22 @@
           image.width = 100;
           images.appendChild(image);
         }
+        // Show the process input button and the success message
         document.getElementById("processButton").style.display = "block";
         document.getElementById("successMessage").style.display = "block";
       };
     </script>
     
+    <!-- image element to display uploaded images -->
     <img id="output" />
 
+    <!-- display a success message after images are uploaded -->
     <p id="successMessage" style="display:none;color: rgb(0, 255, 0);text-align: center; font-family: 'Segoe UI', sans-serif; font-weight: bold;">Images have been successfully uploaded</p>
 
-    
+    <!-- button that triggers the model to process the uploaded images -->
     <button type="button" class="process-image-button"  id= "processButton"  style="display: none;" onclick="buttonEvent()">Process Input</button>
 
+    <!-- Create a table to display the results of the image processing -->
     <table style="border-collapse: collapse;" id="ratios">
       <tr>
         <th style="text-align:center">Cell Type</th>
@@ -73,7 +86,7 @@
     <img id="result_image" style="display:none;" />
 
     <script>
-
+// javascript code that sends the information to the model
     var buttonEvent = function() {      
       var images = document.getElementById('file').files;
       if (images.length > 0) {
