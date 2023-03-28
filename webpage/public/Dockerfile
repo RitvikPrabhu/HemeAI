@@ -1,6 +1,9 @@
+# This docker file will containerize this app.  It will be able to use python and run the app.py.
+# It will download package dependencies for ultralytics and be able to use it.  The requirements.txt is used
+# to download different packages that are needed for the code such as Flask, ultralytics and other packages that are needed
+# for these packages.  This is then exported to port 5000.
+
 FROM python:3.7.4
-
-
 
 RUN apt-get update -y && \
     apt-get install -y python-pip python-dev
