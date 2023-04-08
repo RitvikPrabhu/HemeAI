@@ -1,20 +1,26 @@
+version: '3'
 services:
-#  app:
-#    image: node
-#    working_dir: /usr/local/app
-#    volumes:
-#      - .:/usr/local/app
-#    ports:
-#      - "3000:3000"
-#    command: npm run dev
-  hemeai-front:
-    image: hemeai-front:latest
+  hemeai-frontend:
+    image: hemeai-frontend:latest
+    build:
+      context: .
+      dockerfile: frontend.dockerfile
     ports:
-      - 3000:3000
-    command: npm run dev
-  hemeai-back:
-    image: hemeai-back:latest
+      - "3000:3000"
+    depends_on:
+      - hemeai-backend
+    environment:
+      - "PROXY_API=http://hemeai-backend:5000"
+
+  hemeai-backend:
+    image: hemeai-backend:latest
+    build:
+      context: .
+      dockerfile: backend.dockerfile
     ports:
-      - 5000:5000
-  
+      - "5000:5000"
+
+
+
+
     

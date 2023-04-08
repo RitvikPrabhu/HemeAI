@@ -177,4 +177,4 @@ def get_images():
     return send_file(zipped_buffer, mimetype='application/zip', as_attachment=True, download_name='rendered_images.zip')
 
 if __name__ == '__main__':
-   app.run(debug=True)
+   app.run(debug=True, host='0.0.0.0')

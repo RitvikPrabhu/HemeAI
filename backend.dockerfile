@@ -11,5 +11,8 @@ RUN pip install -r requirements.txt
 RUN mkdir /app
 WORKDIR /app
 COPY ./webpage/backend /app/
+EXPOSE 5000
+
 
 CMD ["python", "app.py"]
+# EXPOSE 3000
