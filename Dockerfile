@@ -1,27 +1,42 @@
-# FROM python:3.8.13
-FROM node:latest
+# Use a lightweight base image
+FROM node:alpine AS build
 
-# RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get update && apt-get install -y curl && \
-    apt-get install -y python3
+# Install dependencies
+RUN apk update && apk add --no-cache \
+    curl \
+    python3 \
+    python3-dev \
+    gcc \
+    musl-dev \
+    linux-headers \
+    ffmpeg \
+    libsm \
+    libxext \
+    npm
 
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-RUN python3 get-pip.py
-RUN apt-get update -y && \
-    apt-get install -y python3-pip python-dev && \
-    # apt-get install -y nodejs && \
-    apt-get install -y ffmpeg libsm6 libxext6
-
-COPY ./requirements.txt requirements.txt
+# Copy source code and install dependencies
+WORKDIR /app
+COPY ./webpage/package*.json ./webpage/
+RUN npm install
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-RUN mkdir /app
-RUN mkdir /app/.next
+# Build frontend
 COPY ./webpage /app/
-WORKDIR /app/frontend
-RUN npm install
 RUN npm run build
+
+# Remove unnecessary files
+RUN rm -rf node_modules
+RUN npm prune --production
+
+# Use a smaller base image and copy compiled artifacts
+FROM node:alpine
+COPY --from=build /app /app
+
+# Set working directory and expose ports
+WORKDIR /app
 EXPOSE 3000
 EXPOSE 5000
 
+# Start the application
 CMD ["npm", "start"]
