@@ -2,7 +2,7 @@ import time
 import ultralytics
 from ultralyticsplus import YOLO, render_result
 import json
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template, url_for, send_from_directory
 import os
 from flask_cors import CORS, cross_origin
 from flask import send_file
@@ -15,6 +15,11 @@ cors = CORS(app)
 # Serve static files
 app.static_folder = './'
 app.config['UPLOAD_FOLDER'] = './'
+
+# Serve the Next.js application from the "/app" route
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('../backend/.next', path)
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -178,3 +183,4 @@ def get_images():
 
 if __name__ == '__main__':
    app.run(debug=True, host='0.0.0.0')
+#    app.run(debug=True)
