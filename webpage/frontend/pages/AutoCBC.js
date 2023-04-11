@@ -17,7 +17,7 @@ function AutoCBC() {
   // const API_URL = axiosAPI.defaults.baseURL;
   // console.log(API_URL);
 
-  const API_URL = "https://0.0.0.0:3000";
+  const API_URL = "https://hemeai.fly.dev";
 
   const [images, setImages] = useState([]);
   const [uploadStage, setUploadStage] = useState(true);
