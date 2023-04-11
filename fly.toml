@@ -1,6 +1,6 @@
-# fly.toml file generated for heme-ai on 2023-04-09T16:02:11-04:00
+# fly.toml file generated for hemeai on 2023-04-10T20:59:00-04:00
 
-app = "heme-ai"
+app = "hemeai"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "iad"

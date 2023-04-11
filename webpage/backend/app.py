@@ -1,4 +1,12 @@
 import time
+
+# try:
+#     from ultralyticsplus import YOLO, render_result
+# except ImportError:
+#     import ultralyticsplus
+#     import ultralyticsplus.YOLO
+#     import ultralyticsplus.render_result
+
 import ultralytics
 from ultralyticsplus import YOLO, render_result
 import json
@@ -17,7 +25,7 @@ app.static_folder = './'
 app.config['UPLOAD_FOLDER'] = './'
 
 # Serve the Next.js application from the "/app" route
-@app.route('/<path:path>')
+@app.route('/<path:path>/')
 def serve_static(path):
     return send_from_directory('../backend/.next', path)
 
@@ -183,4 +191,4 @@ def get_images():
 
 if __name__ == '__main__':
    app.run(debug=True, host='0.0.0.0')
-#    app.run(debug=True)
+#    app.run(debug=False)

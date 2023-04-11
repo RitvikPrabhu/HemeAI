@@ -12,11 +12,13 @@ import JSZip from "jszip";
 
 function AutoCBC() {
 
-  const axios = require('axios');
-  const backendUrl = process.env.PROXY_API || "http://localhost:5000";
-  const axiosAPI = axios.create({baseURL: backendUrl});
-  const API_URL = axiosAPI.defaults.baseURL;
-  console.log(API_URL);
+  // const axios = require('axios');
+  // const backendUrl = process.env.PROXY_API || "http://localhost:5000";
+  // const axiosAPI = axios.create({baseURL: backendUrl});
+  // const API_URL = axiosAPI.defaults.baseURL;
+  // console.log(API_URL);
+
+  const API_URL = "http://0.0.0.0:3000";
 
   const [images, setImages] = useState([]);
   const [uploadStage, setUploadStage] = useState(true);
