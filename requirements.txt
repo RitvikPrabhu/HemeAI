@@ -6,4 +6,3 @@ pandas
 pycocotools
 opencv-python
 requests
-utils
