@@ -28,8 +28,8 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py &&\
 # apk add --no-cache ffmpeg libsm6 libxext6 && \
 # rm -rf /var/cache/apk/*
 
-COPY ./requirements_docker.txt requirements_docker.txt 
-RUN pip install -r requirements_docker.txt --no-cache-dir  && \
+COPY ./requirements.txt requirements.txt 
+RUN pip install -r requirements.txt --no-cache-dir  && \
      rm -rf /root/.cache
 # RUN rm -rf /usr/local/lib/python3.9/dist-packages/nvidia/cudnn && \
 #     rm -rf /usr/local/lib/python3.9/dist-packages/nvidia &&\
