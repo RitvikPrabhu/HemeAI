@@ -1,0 +1,10 @@
+monocyte,0
+segmented_neutrophil,1
+abnormal_rbc,2
+lymphocyte,3
+myelocyte,4
+neutrophil,5
+basophil,6
+band_neutrophil,7
+erythroblast,8
+eosinophil,9
