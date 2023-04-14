@@ -29,7 +29,7 @@ def disease_determine():
     print('Received a POST request to /metrics-and-images')
     app.logger.info('Received a request to /metrics-and-images')
 
-    model = YOLO('../../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
+    model = YOLO('../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
     # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
@@ -125,7 +125,7 @@ def disease_get_image():
 
     image_files = request.files.getlist('images[]')
 
-    model = YOLO('../../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
+    model = YOLO('../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
     # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
@@ -169,7 +169,7 @@ def disease_get_metrics_and_images():
     print('Received a POST request to /metrics-and-images')
     app.logger.info('Received a request to /metrics-and-images')
 
-    model = YOLO('../../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
+    model = YOLO('../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
     # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
