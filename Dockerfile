@@ -1,5 +1,5 @@
 # This is the front end part of the code where it installs npm as well as anything the frontend requires
-# and builds the necessary parts of the frontend.
+# and builds the necessary parts of the website
 
 FROM node:latest AS frontend-build
 WORKDIR /usr/local/app
@@ -9,7 +9,7 @@ COPY webpage/frontend ./
 RUN npm run build
 
 # This is the backend portion which uses node:latest and installs python3 and its dependencies including
-# pip.  The backend also installs all the required packages for app.py.
+# pip.  The backend also installs all the required packages for app.py such as Flask and ultralytics.
 # FROM python:3.8.13
 FROM node:latest
 
@@ -40,7 +40,8 @@ RUN pip install -r requirements.txt --no-cache-dir  && \
 #  RUN  rm -rf /root/.cache
     
 # This part of the code combines the frontend and backend portion to create a
-# multistaged dockerfile in order for the website to work.
+# multistaged dockerfile in order for the website to work.  As well as start
+# the server.
 
 # RUN mkdir /app &&\
 #     mkdir /app/.next
