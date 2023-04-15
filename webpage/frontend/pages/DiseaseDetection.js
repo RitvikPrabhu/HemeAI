@@ -49,7 +49,7 @@ function DiseaseDetection() {
     setUploadStage(false);
     axios
       .post(
-        API_URL + "/images",
+        API_URL + "/images-disease",
         {
           images: images,
         },
@@ -86,7 +86,7 @@ function DiseaseDetection() {
 
     axios
       .post(
-        API_URL + "/metrics",
+        API_URL + "/metrics-disease",
         {
           images: images,
         },
@@ -201,7 +201,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["neutrophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    0 - 1
+                  </td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -213,7 +215,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["eosinophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    1 - 3
+                  </td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -225,7 +229,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["basophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    0 - 1
+                  </td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -237,7 +243,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["lymphocytes"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    20 - 40
+                  </td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -249,7 +257,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["monocytes"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    4 - 8
+                  </td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -261,7 +271,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["myelocytes"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    0
+                  </td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -297,7 +309,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["band_neutrophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    0 - 5
+                  </td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -309,7 +323,9 @@ function DiseaseDetection() {
                   >
                     {tableDate["segmented_neutrophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>
+                    40 - 60
+                  </td>
                 </tr>
               </tbody>
             </table>

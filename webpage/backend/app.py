@@ -24,12 +24,67 @@ cors = CORS(app)
 app.static_folder = './'
 app.config['UPLOAD_FOLDER'] = './'
 
-@app.route('/metrics-and-images', methods=['POST'])
+@app.route('/metrics-disease', methods=['POST'])
+def disease_get_metrics():
+    print('Received a POST request to /metrics')
+    # print(request.files)
+    app.logger.info('Received a request to /metrics-disease')
+
+    model = YOLO('best.pt')
+    # set model parameters
+    model.overrides['conf'] = 0.25  # NMS confidence threshold
+    model.overrides['iou'] = 0.45  # NMS IoU threshold
+    model.overrides['agnostic_nms'] = False  # NMS class-agnostic
+    model.overrides['max_det'] = 1000  # maximum number of detections per image
+
+    images = request.files.getlist('images[]')
+    disease_blood_count = {"neutrophil": 0, "eosinophil": 0, "basophil": 0, "lymphocyte": 0, "monocyte": 0, "myelocyte": 0, "erythroblast": 0, "abnormal_rbc": 0, "band_neutrophil": 0, "segmented_neutrophil": 0}
+
+    for image_file in images:
+        # save the file to a location on your server
+        image = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
+        image_file.save(image)
+
+        image_results = model.predict(image, stream=True)
+        
+        print(model.names[0])
+        
+        for r in image_results:
+            for c in r.boxes.cls:
+                if model.names[int(c)] in disease_blood_count.keys():
+                    disease_blood_count[model.names[int(c)]] += 1
+                    
+    neutrophil_ratio = disease_blood_count['neutrophil'] / sum(disease_blood_count.values())
+    eosinophil_ratio = disease_blood_count['eosinophil'] / sum(disease_blood_count.values())
+    basophil_ratio = disease_blood_count['basophil'] / sum(disease_blood_count.values())
+    lymphocyte_ratio = disease_blood_count['lymphocyte'] / sum(disease_blood_count.values())
+    monocyte_ratio = disease_blood_count['monocyte'] / sum(disease_blood_count.values())
+    myelocyte_ratio = disease_blood_count['myelocyte'] / sum(disease_blood_count.values())
+    erythroblast_ratio = disease_blood_count['erythroblast'] / sum(disease_blood_count.values())
+    abnormal_rbc_ratio = disease_blood_count['abnormal_rbc'] / sum(disease_blood_count.values())
+    band_neutrophil_ratio = disease_blood_count['band_neutrophil'] / sum(disease_blood_count.values())
+    segmented_neutrophil_ratio = disease_blood_count['segmented_neutrophil'] / sum(disease_blood_count.values())
+#    results = {"RBC": blood_count['RBC'] / sum(blood_count.values()) * 100,
+#                       "WBC": blood_count['WBC'] / sum(blood_count.values()) * 100,
+#                       "Platelets": blood_count['Platelets'] / sum(blood_count.values()) * 100}
+    results = {"neutrophils": neutrophil_ratio * 100,
+               "eosinophils": eosinophil_ratio * 100,
+               "basophils": basophil_ratio * 100,
+               "lymphocytes": lymphocyte_ratio * 100,
+               "monocytes": monocyte_ratio * 100,
+               "myelocytes": myelocyte_ratio * 100,
+               "erythroblasts": erythroblast_ratio * 100,
+               "abnormal_rbc": abnormal_rbc_ratio * 100,
+               "band_neutrophils": band_neutrophil_ratio * 100,
+               "segmented_neutrophils": segmented_neutrophil_ratio * 100}
+    return json.dumps(results)
+
+@app.route('/metrics-and-images-disease', methods=['POST'])
 def disease_determine():
     print('Received a POST request to /metrics-and-images')
     app.logger.info('Received a request to /metrics-and-images')
 
-    model = YOLO('../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
+    model = YOLO('best.pt')
     # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
@@ -118,14 +173,14 @@ def disease_determine():
     response = {}
     return json.dumps(response)
 
-@app.route('/images', methods=['POST'])
+@app.route('/images-disease', methods=['POST'])
 def disease_get_image():
     print("howdy")
-    app.logger.info('Received a request to /images')
+    app.logger.info('Received a request to /images-disease')
 
     image_files = request.files.getlist('images[]')
 
-    model = YOLO('../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
+    model = YOLO('best.pt')
     # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
@@ -164,12 +219,12 @@ def disease_get_image():
     zipped_buffer.seek(0)  # move the pointer to the beginning of the buffer
     return send_file(zipped_buffer, mimetype='application/zip', as_attachment=True, download_name='rendered_images.zip')
 
-@app.route('/metrics-and-images', methods=['POST'])
+@app.route('/metrics-and-images-disease', methods=['POST'])
 def disease_get_metrics_and_images():
     print('Received a POST request to /metrics-and-images')
     app.logger.info('Received a request to /metrics-and-images')
 
-    model = YOLO('../Milestone2_DiseaseDetect/YOLOv8/runs/detect/train/weights/best.pt')
+    model = YOLO('best.pt')
     # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
