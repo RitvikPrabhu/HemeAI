@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios, { AxiosResponse } from "axios";
 import JSZip from "jszip";
+import AbnormalResultsPopup from "@/components/Popup";
 
 function DiseaseDetection() {
   const API_URL = "http://localhost:5000";
@@ -23,6 +24,17 @@ function DiseaseDetection() {
     RBC: "Loading...",
     WBC: "Loading...",
   });
+  const [showPopup, setShowPopup] = useState(false);
+  const [abnormal, setAbnormal] = useState(false);
+  const [popUpTitle, setPopUpTitle] = useState("");
+  const [popUpBody, setPopUpBody] = useState("");
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   const handleUpload = (event) => {
     const uploadedImages = Array.from(event.target.files);
@@ -102,6 +114,26 @@ function DiseaseDetection() {
         console.log("hey");
         console.log(resultsData);
         setTableData(resultsData);
+
+        const Eosinophils = parseFloat(resultsData["eosinophils"]);
+        const Basophils = parseFloat(resultsData["basophils"]);
+        const Myelocytes = parseFloat(resultsData["myelocytes"]);
+        if (Basophils > 10) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your results indicate a high basophil count (basophilia). This may mean that you are suffering from severe allergies. Please consult a physician."
+          );
+          setShowPopup(true);
+          setAbnormal(true);
+        }
+        if (Myelocytes > 0) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your results indicate a high myelocyte count. This may mean that you are suffering from leukemia. Please consult a physician."
+          );
+          setShowPopup(true);
+          setAbnormal(true);
+        }
       })
       .catch((error) => {
         // handle errors here
@@ -201,9 +233,7 @@ function DiseaseDetection() {
                   >
                     {tableDate["neutrophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    0 - 1
-                  </td>
+                  <td style={{ border: "none", textAlign: "center" }}>50-70</td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -215,9 +245,7 @@ function DiseaseDetection() {
                   >
                     {tableDate["eosinophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    1 - 3
-                  </td>
+                  <td style={{ border: "none", textAlign: "center" }}>1 - 3</td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -229,9 +257,7 @@ function DiseaseDetection() {
                   >
                     {tableDate["basophils"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    0 - 1
-                  </td>
+                  <td style={{ border: "none", textAlign: "center" }}>0 - 1</td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -257,9 +283,7 @@ function DiseaseDetection() {
                   >
                     {tableDate["monocytes"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    4 - 8
-                  </td>
+                  <td style={{ border: "none", textAlign: "center" }}>4 - 8</td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -271,9 +295,7 @@ function DiseaseDetection() {
                   >
                     {tableDate["myelocytes"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    0
-                  </td>
+                  <td style={{ border: "none", textAlign: "center" }}>0</td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -285,7 +307,7 @@ function DiseaseDetection() {
                   >
                     {tableDate["erythroblasts"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
+                  <td style={{ border: "none", textAlign: "center" }}>0</td>
                 </tr>
                 <tr>
                   <td style={{ border: "none", textAlign: "center" }}>
@@ -297,35 +319,7 @@ function DiseaseDetection() {
                   >
                     {tableDate["abnormal_rbc"]}
                   </td>
-                  <td style={{ border: "none", textAlign: "center" }}>...</td>
-                </tr>
-                <tr>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    Band Neutrophils
-                  </td>
-                  <td
-                    style={{ border: "none", textAlign: "center" }}
-                    id="bandVal"
-                  >
-                    {tableDate["band_neutrophils"]}
-                  </td>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    0 - 5
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    Segmented Neutrophils
-                  </td>
-                  <td
-                    style={{ border: "none", textAlign: "center" }}
-                    id="segVal"
-                  >
-                    {tableDate["segmented_neutrophils"]}
-                  </td>
-                  <td style={{ border: "none", textAlign: "center" }}>
-                    40 - 60
-                  </td>
+                  <td style={{ border: "none", textAlign: "center" }}>0</td>
                 </tr>
               </tbody>
             </table>
@@ -379,6 +373,14 @@ function DiseaseDetection() {
         </div>
       )}
       <Footer />
+      {showPopup && (
+        <AbnormalResultsPopup
+          title={popUpTitle}
+          body={popUpBody}
+          showButton={false}
+          onClose={handleClosePopup}
+        />
+      )}
     </div>
   );
 }

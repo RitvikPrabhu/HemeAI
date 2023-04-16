@@ -67,16 +67,14 @@ def disease_get_metrics():
 #    results = {"RBC": blood_count['RBC'] / sum(blood_count.values()) * 100,
 #                       "WBC": blood_count['WBC'] / sum(blood_count.values()) * 100,
 #                       "Platelets": blood_count['Platelets'] / sum(blood_count.values()) * 100}
-    results = {"neutrophils": neutrophil_ratio * 100,
+    results = {"neutrophils": (neutrophil_ratio + band_neutrophil_ratio + segmented_neutrophil_ratio) * 100,
                "eosinophils": eosinophil_ratio * 100,
                "basophils": basophil_ratio * 100,
                "lymphocytes": lymphocyte_ratio * 100,
                "monocytes": monocyte_ratio * 100,
                "myelocytes": myelocyte_ratio * 100,
                "erythroblasts": erythroblast_ratio * 100,
-               "abnormal_rbc": abnormal_rbc_ratio * 100,
-               "band_neutrophils": band_neutrophil_ratio * 100,
-               "segmented_neutrophils": segmented_neutrophil_ratio * 100}
+               "abnormal_rbc": abnormal_rbc_ratio * 100}
     return json.dumps(results)
 
 @app.route('/metrics-and-images-disease', methods=['POST'])
@@ -146,16 +144,14 @@ def disease_determine():
     band_neutrophil_ratio = disease_blood_count['band_neutrophils'] / sum(disease_blood_count.values())
     segmented_neutrophil_ratio = disease_blood_count['segmented_neutrophils'] / sum(disease_blood_count.values())
 
-    results = {"neutrophils": neutrophil_ratio * 100,
+    results = {"neutrophils": (neutrophil_ratio + band_neutrophil_ratio + segmented_neutrophil_ratio) * 100,
                "eosinophils": eosinophil_ratio * 100,
                "basophils": basophil_ratio * 100,
                "lymphocytes": lymphocyte_ratio * 100,
                "monocytes": monocyte_ratio * 100,
                "myelocytes": myelocyte_ratio * 100,
                "erythroblasts": erythroblast_ratio * 100,
-               "abnormal_rbc": abnormal_rbc_ratio * 100,
-               "band_neutrophils": band_neutrophil_ratio * 100,
-               "segmented_neutrophils": segmented_neutrophil_ratio * 100}
+               "abnormal_rbc": abnormal_rbc_ratio * 100}
     
     disease_arr = []
     

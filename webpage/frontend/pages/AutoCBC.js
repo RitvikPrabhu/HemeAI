@@ -9,6 +9,8 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios, { AxiosResponse } from "axios";
 import JSZip from "jszip";
+import { useRouter } from "next/router";
+import AbnormalResultsPopup from "@/components/Popup";
 
 function AutoCBC() {
   const API_URL = "http://localhost:5000";
@@ -23,6 +25,18 @@ function AutoCBC() {
     RBC: "Loading...",
     WBC: "Loading...",
   });
+  const [showPopup, setShowPopup] = useState(false);
+  const [abnormal, setAbnormal] = useState(false);
+
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const router = useRouter();
 
   const handleUpload = (event) => {
     const uploadedImages = Array.from(event.target.files);
@@ -99,9 +113,18 @@ function AutoCBC() {
       .then((response) => {
         // access the response data here
         const resultsData = response.data;
-        console.log("hey");
-        console.log(resultsData);
+        const RBC = parseFloat(resultsData["RBC"]);
+        const WBC = parseFloat(resultsData["WBC"]);
+        const Platelets = parseFloat(resultsData["Platelets"]);
+
+        if (RBC > WBC && RBC > Platelets) {
+          console.log("RBC is the highest");
+          setShowPopup(true);
+          setAbnormal(true);
+        }
         setTableData(resultsData);
+
+        //Check if the results are good or bad
       })
       .catch((error) => {
         // handle errors here
@@ -111,6 +134,13 @@ function AutoCBC() {
   const refreshPage = () => {
     location.reload();
   };
+  function handleButtonClick(event) {
+    console.log(typeof images);
+
+    router.push({
+      pathname: "/DiseaseDetection",
+    });
+  }
 
   return (
     <div className={styles.background}>
@@ -275,10 +305,30 @@ function AutoCBC() {
             >
               Try Again
             </Button>
+            {abnormal && (
+              <Button
+                variant="contained"
+                component="label"
+                className={styles.button}
+                onClick={handleButtonClick}
+                style={{ backgroundColor: "#006400" }}
+              >
+                Run Disease Detection
+              </Button>
+            )}
           </div>
         </div>
       )}
       <Footer />
+      {showPopup && (
+        <AbnormalResultsPopup
+          title="Abnormal results"
+          body="We detect something wrong with your blood test results. Please run
+        Disease Detection."
+          showButton={true}
+          onClose={handleClosePopup}
+        />
+      )}
     </div>
   );
 }
