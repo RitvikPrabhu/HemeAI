@@ -11,7 +11,9 @@ import axios, { AxiosResponse } from "axios";
 import JSZip from "jszip";
 import AbnormalResultsPopup from "@/components/Popup";
 
+//creates Disease Detection page
 function DiseaseDetection() {
+  // declares variables
   const API_URL = "http://localhost:5000";
 
   const [images, setImages] = useState([]);
@@ -24,6 +26,8 @@ function DiseaseDetection() {
     RBC: "Loading...",
     WBC: "Loading...",
   });
+
+  // handles popups
   const [showPopup, setShowPopup] = useState(false);
   const [abnormal, setAbnormal] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("");
@@ -36,15 +40,18 @@ function DiseaseDetection() {
     setShowPopup(false);
   };
 
+  // manages image uploads
   const handleUpload = (event) => {
     const uploadedImages = Array.from(event.target.files);
     setImages((prevImages) => [...prevImages, ...uploadedImages]);
   };
 
+  // allows user to delete images they may have accidentally uploaded
   const handleDelete = (index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+  // allows user to download the annotated images as a zip file
   const downloadZip = () => {
     const url = URL.createObjectURL(new Blob([zipFile]));
     const link = document.createElement("a");
@@ -57,6 +64,7 @@ function DiseaseDetection() {
     document.body.removeChild(link);
   };
 
+  // sends images to model and retrieve annotations
   const processImages = () => {
     setUploadStage(false);
     axios
@@ -109,19 +117,47 @@ function DiseaseDetection() {
         }
       )
       .then((response) => {
-        // access the response data here
+        // response data
         const resultsData = response.data;
         console.log("hey");
         console.log(resultsData);
         setTableData(resultsData);
-
+        const Erythroblasts = parseFloat(resultsData["erythroblasts"]);
+        const AbnormalRBCs = parseFloat(resultsData["abnormal_rbc"]);
         const Eosinophils = parseFloat(resultsData["eosinophils"]);
         const Basophils = parseFloat(resultsData["basophils"]);
         const Myelocytes = parseFloat(resultsData["myelocytes"]);
-        if (Basophils > 10) {
+        const Lymphocytes = parseFloat(resultsData["lymphocytes"]);
+
+        // returns diagnoses
+        if (Erythroblasts > 1 || AbnormalRBCs > 1) {
           setPopUpTitle("Abnormal Results Detected");
           setPopUpBody(
-            "Your results indicate a high basophil count (basophilia). This may mean that you are suffering from severe allergies. Please consult a physician."
+            "Your results indicate that you may be suffering from anemia. Please consult a physician."
+          );
+          setShowPopup(true);
+          setAbnormal(true);
+        }
+        if (Basophils > 5) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your results indicate an abnormally high basophil count (basophilia). This may mean that you are suffering from a severe allergic reaction. Please consult a physician."
+          );
+          setShowPopup(true);
+          setAbnormal(true);
+        }
+        if (Eosinophils > 10) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your results indicate an abnormally high eosinophil count. This may mean that you are suffering from a fungal or parasitic infection. Please consult a physician."
+          );
+          setShowPopup(true);
+          setAbnormal(true);
+        }
+        if (Lymphocytes > 50) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your results indicate a high lymphocyte count. This may mean that you are suffering from lymphocytic leukemia. Please consult a physician."
           );
           setShowPopup(true);
           setAbnormal(true);
@@ -129,7 +165,7 @@ function DiseaseDetection() {
         if (Myelocytes > 0) {
           setPopUpTitle("Abnormal Results Detected");
           setPopUpBody(
-            "Your results indicate a high myelocyte count. This may mean that you are suffering from leukemia. Please consult a physician."
+            "Your results indicate a high myelocyte count. This may mean that you are suffering from myelogenous leukemia. Please consult a physician."
           );
           setShowPopup(true);
           setAbnormal(true);
@@ -143,6 +179,7 @@ function DiseaseDetection() {
   const refreshPage = () => {
     location.reload();
   };
+  // shows the outputs on the website
 
   return (
     <div className={styles.background}>

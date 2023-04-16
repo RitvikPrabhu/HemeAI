@@ -12,7 +12,10 @@ import JSZip from "jszip";
 import { useRouter } from "next/router";
 import AbnormalResultsPopup from "@/components/Popup";
 
+// creates AutoCBC page
+
 function AutoCBC() {
+  // declares variables
   const API_URL = "http://localhost:5000";
 
   const [images, setImages] = useState([]);
@@ -27,7 +30,10 @@ function AutoCBC() {
   });
   const [showPopup, setShowPopup] = useState(false);
   const [abnormal, setAbnormal] = useState(false);
+  const [popUpTitle, setPopUpTitle] = useState("");
+  const [popUpBody, setPopUpBody] = useState("");
 
+  // handles popups
   const handleShowPopup = () => {
     setShowPopup(true);
   };
@@ -38,15 +44,18 @@ function AutoCBC() {
 
   const router = useRouter();
 
+  // manages image uploads
   const handleUpload = (event) => {
     const uploadedImages = Array.from(event.target.files);
     setImages((prevImages) => [...prevImages, ...uploadedImages]);
   };
 
+  // allows user to delete images they may have accidentally uploaded
   const handleDelete = (index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+  // allows user to download the annotated images as a zip file
   const downloadZip = () => {
     const url = URL.createObjectURL(new Blob([zipFile]));
     const link = document.createElement("a");
@@ -59,6 +68,7 @@ function AutoCBC() {
     document.body.removeChild(link);
   };
 
+  // sends images to model and retrieve annotations
   const processImages = () => {
     setUploadStage(false);
     axios
@@ -94,9 +104,7 @@ function AutoCBC() {
           });
         });
       })
-      .catch((error) => {
-        // handle errors here
-      });
+      .catch((error) => {});
 
     axios
       .post(
@@ -111,14 +119,34 @@ function AutoCBC() {
         }
       )
       .then((response) => {
-        // access the response data here
+        // response data
         const resultsData = response.data;
         const RBC = parseFloat(resultsData["RBC"]);
         const WBC = parseFloat(resultsData["WBC"]);
         const Platelets = parseFloat(resultsData["Platelets"]);
 
-        if (RBC > WBC && RBC > Platelets) {
-          console.log("RBC is the highest");
+        // returns diagnoses and sends people to disease detection
+        if (Platelets < 1) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your CBC results are abnormal, you have a low platelet count which is indicative of thrombocytopenia, please click on the button below to get additional diagnoses"
+          );
+          setShowPopup(true);
+          setAbnormal(true);
+        }
+        if (RBC < 90) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your CBC results are abnormal, you have a low red blood cell count which is indicative of anemia, please click on the button below to get additional diagnoses"
+          );
+          setShowPopup(true);
+          setAbnormal(true);
+        }
+        if (WBC > 5) {
+          setPopUpTitle("Abnormal Results Detected");
+          setPopUpBody(
+            "Your CBC results are abnormal, please click on the button below to get a more specific diagnosis"
+          );
           setShowPopup(true);
           setAbnormal(true);
         }
@@ -141,7 +169,7 @@ function AutoCBC() {
       pathname: "/DiseaseDetection",
     });
   }
-
+  // shows the outputs on the website
   return (
     <div className={styles.background}>
       <Header />
@@ -322,9 +350,8 @@ function AutoCBC() {
       <Footer />
       {showPopup && (
         <AbnormalResultsPopup
-          title="Abnormal results"
-          body="We detect something wrong with your blood test results. Please run
-        Disease Detection."
+          title={popUpTitle}
+          body={popUpBody}
           showButton={true}
           onClose={handleClosePopup}
         />
