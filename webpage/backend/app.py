@@ -24,6 +24,8 @@ cors = CORS(app)
 app.static_folder = './'
 app.config['UPLOAD_FOLDER'] = './'
 
+# Deals with the disease detection portion, specifically the ratio of different diseased cells.
+
 @app.route('/metrics-disease', methods=['POST'])
 def disease_get_metrics():
     print('Received a POST request to /metrics')
@@ -32,7 +34,7 @@ def disease_get_metrics():
 
     model = YOLO('best.pt')
     # set model parameters
-    model.overrides['conf'] = 0.25  # NMS confidence threshold
+    model.overrides['conf'] = 0.232  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
     model.overrides['max_det'] = 1000  # maximum number of detections per image
@@ -53,17 +55,29 @@ def disease_get_metrics():
             for c in r.boxes.cls:
                 if model.names[int(c)] in disease_blood_count.keys():
                     disease_blood_count[model.names[int(c)]] += 1
+    
+    neutrophil_ratio = 0
+    eosinophil_ratio = 0
+    basophil_ratio = 0
+    lymphocyte_ratio = 0
+    monocyte_ratio = 0
+    myelocyte_ratio = 0
+    erythroblast_ratio = 0
+    abnormal_rbc_ratio = 0
+    band_neutrophil_ratio = 0
+    segmented_neutrophil_ratio = 0
                     
-    neutrophil_ratio = disease_blood_count['neutrophil'] / sum(disease_blood_count.values())
-    eosinophil_ratio = disease_blood_count['eosinophil'] / sum(disease_blood_count.values())
-    basophil_ratio = disease_blood_count['basophil'] / sum(disease_blood_count.values())
-    lymphocyte_ratio = disease_blood_count['lymphocyte'] / sum(disease_blood_count.values())
-    monocyte_ratio = disease_blood_count['monocyte'] / sum(disease_blood_count.values())
-    myelocyte_ratio = disease_blood_count['myelocyte'] / sum(disease_blood_count.values())
-    erythroblast_ratio = disease_blood_count['erythroblast'] / sum(disease_blood_count.values())
-    abnormal_rbc_ratio = disease_blood_count['abnormal_rbc'] / sum(disease_blood_count.values())
-    band_neutrophil_ratio = disease_blood_count['band_neutrophil'] / sum(disease_blood_count.values())
-    segmented_neutrophil_ratio = disease_blood_count['segmented_neutrophil'] / sum(disease_blood_count.values())
+    if sum(disease_blood_count.values()) != 0:
+        neutrophil_ratio = disease_blood_count['neutrophil'] / sum(disease_blood_count.values())
+        eosinophil_ratio = disease_blood_count['eosinophil'] / sum(disease_blood_count.values())
+        basophil_ratio = disease_blood_count['basophil'] / sum(disease_blood_count.values())
+        lymphocyte_ratio = disease_blood_count['lymphocyte'] / sum(disease_blood_count.values())
+        monocyte_ratio = disease_blood_count['monocyte'] / sum(disease_blood_count.values())
+        myelocyte_ratio = disease_blood_count['myelocyte'] / sum(disease_blood_count.values())
+        erythroblast_ratio = disease_blood_count['erythroblast'] / sum(disease_blood_count.values())
+        abnormal_rbc_ratio = disease_blood_count['abnormal_rbc'] / sum(disease_blood_count.values())
+        band_neutrophil_ratio = disease_blood_count['band_neutrophil'] / sum(disease_blood_count.values())
+        segmented_neutrophil_ratio = disease_blood_count['segmented_neutrophil'] / sum(disease_blood_count.values())
 #    results = {"RBC": blood_count['RBC'] / sum(blood_count.values()) * 100,
 #                       "WBC": blood_count['WBC'] / sum(blood_count.values()) * 100,
 #                       "Platelets": blood_count['Platelets'] / sum(blood_count.values()) * 100}
@@ -169,6 +183,8 @@ def disease_determine():
     response = {}
     return json.dumps(response)
 
+
+# deals with uploading the images for the disease detection page.
 @app.route('/images-disease', methods=['POST'])
 def disease_get_image():
     print("howdy")
@@ -178,7 +194,7 @@ def disease_get_image():
 
     model = YOLO('best.pt')
     # set model parameters
-    model.overrides['conf'] = 0.25  # NMS confidence threshold
+    model.overrides['conf'] = 0.232  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
     model.overrides['max_det'] = 1000  # maximum number of detections per image
