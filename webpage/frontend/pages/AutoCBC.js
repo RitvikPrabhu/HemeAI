@@ -126,7 +126,13 @@ function AutoCBC() {
         const Platelets = parseFloat(resultsData["Platelets"]);
 
         // returns diagnoses and sends people to disease detection
-        if (Platelets < 1) {
+        if (true) {
+          setPopUpTitle("Normal Results Detected");
+          setPopUpBody("Your CBC results are normal, you are likely healthy!");
+          setShowPopup(true);
+          setAbnormal(false);
+        }
+        if (Platelets < 0.5) {
           setPopUpTitle("Abnormal Results Detected");
           setPopUpBody(
             "Your CBC results are abnormal, you have a low platelet count which is indicative of thrombocytopenia, please click on the button below to get additional diagnoses"
@@ -151,8 +157,6 @@ function AutoCBC() {
           setAbnormal(true);
         }
         setTableData(resultsData);
-
-        //Check if the results are good or bad
       })
       .catch((error) => {
         // handle errors here

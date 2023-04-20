@@ -17,6 +17,14 @@ function Header() {
       <Button
         variant="text"
         href="#outlined-buttons"
+        onClick={() => router.push("/About")}
+        className={styles.button}
+      >
+        About
+      </Button>
+      <Button
+        variant="text"
+        href="#outlined-buttons"
         onClick={() => router.push("/AutoCBC")}
         className={styles.button}
       >

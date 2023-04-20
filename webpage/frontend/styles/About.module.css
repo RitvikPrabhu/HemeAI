@@ -1,0 +1,30 @@
+.background {
+  background-color: brown;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%; /* Set the height to 100% of the viewport height */
+}
+
+.main {
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.title {
+  color: white;
+  font-size: 5vw;
+  margin-left: 20px;
+  font-weight: 700;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.subtitle {
+  color: white;
+  font-size: 2vw; /* Use viewport units for font size */
+  margin-left: 20px;
+  margin-top: 5px;
+  font-weight: 700;
+  font-family: "Segoe UI", sans-serif;
+}

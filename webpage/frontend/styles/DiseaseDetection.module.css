@@ -29,6 +29,12 @@
   font-weight: 700;
 }
 
+.text {
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+}
+
 .button {
   margin-top: 5px;
   margin-bottom: 5px;

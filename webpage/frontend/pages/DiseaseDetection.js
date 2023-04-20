@@ -130,6 +130,12 @@ function DiseaseDetection() {
         const Lymphocytes = parseFloat(resultsData["lymphocytes"]);
 
         // returns diagnoses
+        if (true) {
+          setPopUpTitle("Normal Results Detected");
+          setPopUpBody("Your CBC results are normal, you are likely healthy!");
+          setShowPopup(true);
+          setAbnormal(false);
+        }
         if (Erythroblasts > 1 || AbnormalRBCs > 1) {
           setPopUpTitle("Abnormal Results Detected");
           setPopUpBody(
