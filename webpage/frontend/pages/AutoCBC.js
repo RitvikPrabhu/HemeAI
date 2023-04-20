@@ -47,6 +47,25 @@ function AutoCBC() {
   // manages image uploads
   const handleUpload = (event) => {
     const uploadedImages = Array.from(event.target.files);
+    localStorage.clear();
+    for (const image of uploadedImages) {
+      const reader = new FileReader();
+      reader.readAsDataURL(image)
+
+      reader.addEventListener('load', () => {
+        const imagesArray = localStorage.getItem('images');
+        let images = [];
+
+        if (imagesArray) {
+          images = [...JSON.parse(imagesArray)];
+          images.push(reader.result);
+        } else {
+          images.push(reader.result);
+        }
+
+        localStorage.setItem('images', JSON.stringify(images));
+      })
+    }
     setImages((prevImages) => [...prevImages, ...uploadedImages]);
   };
 
@@ -164,7 +183,7 @@ function AutoCBC() {
   };
   function handleButtonClick(event) {
     console.log(typeof images);
-    
+
     router.push({
       pathname: "/DiseaseDetection",
     });

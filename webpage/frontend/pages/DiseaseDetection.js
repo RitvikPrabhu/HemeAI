@@ -42,7 +42,15 @@ function DiseaseDetection() {
 
   // manages image uploads
   const handleUpload = (event) => {
-    const uploadedImages = Array.from(event.target.files);
+//    const uploadedImages = NULL;
+    if (JSON.parse(localStorage.getItem('images')) != NULL) {
+      const uploadedImages = JSON.parse(localStorage.getItem('images'));
+      localStorage.clear();
+    }
+    else {
+      const uploadedImages = Array.from(event.target.files);
+    }
+//    const uploadedImages = Array.from(event.target.files);
     setImages((prevImages) => [...prevImages, ...uploadedImages]);
   };
 
