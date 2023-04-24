@@ -168,7 +168,7 @@ function AutoCBC() {
   };
   function handleButtonClick(event) {
     console.log(typeof images);
-
+    
     router.push({
       pathname: "/DiseaseDetection",
     });
