@@ -7,8 +7,9 @@ export default function About() {
     <div className={styles.background}>
       <Header />
       <div className={styles.main}>
-        <h1 className={styles.title}>About HemeAI</h1>
-        <h2 className={styles.subtitle}>
+        <h1 className={styles.title}> About HemeAI </h1>
+        <h2 className={styles.subtitle}> Introduction: </h2>
+        <h2 className={styles.text}>
           Complete blood counts (CBCs) are one of the most commonly ordered lab
           tests. They are critical in narrowing down possible diagnoses. When
           the results of a CBC are abnormal, a peripheral blood smear is usually
@@ -17,15 +18,26 @@ export default function About() {
           to receive the results and even longer in rural and developing areas.
           In order to find an alternative, in this project we aim to:
         </h2>
-        <ul className={styles.subtitle}>
+        <ul className={styles.text}>
           <li>Automate a Complete Blood Count</li>
         </ul>
-        <ul className={styles.subtitle}>
+        <ul className={styles.text}>
           <li>Automate a peripheral blood smear</li>
         </ul>
-        <ul className={styles.subtitle}>
+        <ul className={styles.text}>
           <li>Make a preliminary diagnosis based on the results</li>
         </ul>
+
+        <h2 className={styles.subtitle}>
+          Results:
+        </h2>
+
+        <img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/Milestone1_AutoCBC/runs/detect/train15/confusion_matrix.png?raw=true" alt="Blood Count" width="200" height="300" className={styles.center}></img>
+        <img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/Milestone2_DiseaseDetect/YOLOv8/runs/detect/train3/val/confusion_matrix.png?raw=true" alt="Abnormal WBC and RBC" width="200" height="300" className={styles.center}></img>
+
+        <h2 className={styles.text}>
+          The first image is a confusion matrix with WBC, RBC, and Platelets.  The confusion matrix shows that the   The second image is a confusion matrix for specific WBCs and abnormal RBCs.
+        </h2>
 
         <h2 className={styles.subtitle}> Final Paper: </h2>
         <h2 className={styles.subtitle}>
