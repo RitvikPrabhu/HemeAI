@@ -36,7 +36,10 @@ export default function About() {
         <img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/Milestone2_DiseaseDetect/YOLOv8/runs/detect/train3/val/confusion_matrix.png?raw=true" alt="Abnormal WBC and RBC" width="200" height="300" className={styles.center}></img>
 
         <h2 className={styles.text}>
-          The first image is a confusion matrix with WBC, RBC, and Platelets.  The confusion matrix shows that the   The second image is a confusion matrix for specific WBCs and abnormal RBCs.
+          The first image is a confusion matrix with WBC, RBC, and Platelets.
+          The F1 score gotten from the 1st model was 0.85.
+          The second image is a confusion matrix for specific WBCs and abnormal RBCs.
+          The F1 score gotten from the 2nd model was 0.75.
         </h2>
 
         <h2 className={styles.subtitle}> Final Paper: </h2>
@@ -44,7 +47,10 @@ export default function About() {
           {" "}
           Code: <a href="https://github.com/RitvikPrabhu/HemeAI">GitHub Link</a>
         </h2>
-        <h2 className={styles.subtitle}> Final Presentation: </h2>
+        <h2 className={styles.subtitle}>
+          {" "}
+          Final Presentation: <a href="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/pages/Final%20Presentation.pdf?raw=true" attributes-list download>Final Presentation Link</a>
+        </h2>
       </div>
       <Footer />
     </div>
