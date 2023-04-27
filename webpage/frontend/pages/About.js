@@ -42,7 +42,10 @@ export default function About() {
           The F1 score gotten from the 2nd model was 0.75.
         </h2>
 
-        <h2 className={styles.subtitle}> Final Paper: </h2>
+        <h2 className={styles.subtitle}>
+          {" "}
+          Final Paper: <a href="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/pages/Final_Paper.pdf?raw=true" attributes-list download>Final Paper Link</a>
+        </h2>
         <h2 className={styles.subtitle}>
           {" "}
           Code: <a href="https://github.com/RitvikPrabhu/HemeAI">GitHub Link</a>
