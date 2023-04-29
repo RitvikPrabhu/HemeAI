@@ -92,6 +92,26 @@ export default function About() {
           {" "}
           Final Presentation: <a href="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/Final%20Presentation.pdf?raw=true" attributes-list download><img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/microsoft-powerpoint-logo.png?raw=true" alt="PresLogo" weight="100px" height="100px"></img></a>
         </h2>
+        <h2 className={styles.subtitle}>Demo Instructions: </h2>
+        <h2 className={styles.text}>
+          <li>Click the Demo Button</li>
+        </h2>
+        <h2 className={styles.text}>
+          <li>Next Click Upload Image and select all blood smear images in the AutoCBC page</li>
+        </h2>
+        <h2 className={styles.text}>
+          <li>Once you have added enough images click the process image button</li>
+        </h2>
+        <h2 className={styles.text}>
+          <li>If there is an abnormal result in your CBC you will be prompted with a button to the disease detection portion</li>
+        </h2>
+        <h2 className={styles.text}>
+          <li>Next Click Upload Image and select all blood smear images in the Disease Detection page</li>
+        </h2>
+        <h2 className={styles.text}>
+          <li>Give the page a second and then the page will prompt with potential diseases you might have or if you are alright</li>
+        </h2>
+
         <Button
           variant="contained"
           component="label"
