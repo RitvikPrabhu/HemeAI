@@ -38,6 +38,7 @@
   color: white;
   font-size: 1vw;
   margin-left: 25px;
+  margin-right: 25px;
   margin-top: 10px;
   font-weight: 700;
   font-family: "Segoe UI", sans-serif;
@@ -49,4 +50,16 @@
   margin-right: auto;
   margin-top: 5vh;
   width: 50%;
+}
+
+.button {
+  /*height: 200px;
+  width: 200px;*/
+  margin-top: 25px;
+  margin-bottom: 50px;
+  margin-left: 50%;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background-color: rgba(128, 0, 0, 0.37);
 }
