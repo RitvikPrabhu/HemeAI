@@ -82,15 +82,15 @@ export default function About() {
 
         <h2 className={styles.subtitle}>
           {" "}
-          Final Paper: <a href="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/Final_Paper.pdf?raw=true" attributes-list download>Final Paper Link</a>
+          Final Paper: <a href="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/Final_Paper.pdf?raw=true" attributes-list download><img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/microsoft-final-paper.jpg?raw=true" alt="Paper Logo" weight="100px" height="100px"></img></a>
         </h2>
         <h2 className={styles.subtitle}>
           {" "}
-          Code: <a href="https://github.com/RitvikPrabhu/HemeAI">Github Link</a>
+          Code: <a href="https://github.com/RitvikPrabhu/HemeAI"><img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/GitHub-Logo.png?raw=true" alt="GitLogo" weight="100px" height="100px"></img></a>
         </h2>
         <h2 className={styles.subtitle}>
           {" "}
-          Final Presentation: <a href="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/Final%20Presentation.pdf?raw=true" attributes-list download>Final Presentation Link</a>
+          Final Presentation: <a href="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/Final%20Presentation.pdf?raw=true" attributes-list download><img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/webpage/frontend/public/microsoft-powerpoint-logo.png?raw=true" alt="PresLogo" weight="100px" height="100px"></img></a>
         </h2>
         <Button
           variant="contained"
