@@ -111,7 +111,8 @@ export default function About() {
         <h2 className={styles.text}>
           <li>Give the page a second and then the page will prompt with potential diseases you might have or if you are alright</li>
         </h2>
-
+      </div>
+      <div className={styles.center}>
         <Button
           variant="contained"
           component="label"
@@ -121,7 +122,6 @@ export default function About() {
         Demo
         </Button>
       </div>
-      
       <Footer />
     </div>
   );

@@ -40,6 +40,7 @@
   margin-left: 25px;
   margin-right: 25px;
   margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: 700;
   font-family: "Segoe UI", sans-serif;
 }
@@ -54,13 +55,13 @@
 
 .button {
   /*height: 200px;*/
-  /*width: 200px;*/
-  margin-top: 25px;
+  /*width: 50%;
+  margin-top: 50px;
   margin-bottom: 50px;
-  margin-left: 50%;
-  margin-right: 50%;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: center;
-  text-align: center;
+  text-align: center;*/
   color: white;
   background-color: rgba(128, 0, 0, 0.37);
 }
