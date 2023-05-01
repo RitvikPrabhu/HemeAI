@@ -1,0 +1,47 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: echo $DOCKER_HUB_TOKEN | docker login -u $DOCKER_HUB_USERNAME --password-stdin
+
+      - name: Build Docker image
+        run: |
+          TIMESTAMP=$(date +%s)
+          TAG=${{ github.ref }}-${{ github.run_id }}-${TIMESTAMP}
+          docker build --platform linux/amd64 -t $DOCKER_HUB_USERNAME/heme-ai:$TAG .
+          docker push $DOCKER_HUB_USERNAME/heme-ai:$TAG
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            docker tag $DOCKER_HUB_USERNAME/heme-ai:$TAG $DOCKER_HUB_USERNAME/heme-ai:latest
+            docker push $DOCKER_HUB_USERNAME/heme-ai:latest
+          fi
+          echo "TAG=$TAG" > tag.env
+
+      - name: Deploy to Kubernetes
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            ./k8s/*.yaml
+          imagePullSecrets: |
+            [
+              {
+                "name": "dockerhub"
+              }
+            ]
+          namespace: cs2304-s23-ritvikp
+          image: $DOCKER_HUB_USERNAME/heme-ai:${{ env.TAG }}
+          deployment: website

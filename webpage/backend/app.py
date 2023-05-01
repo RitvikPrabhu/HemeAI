@@ -472,5 +472,7 @@ def get_images():
     return send_file(zipped_buffer, mimetype='application/zip', as_attachment=True, download_name='rendered_images.zip')
 
 if __name__ == '__main__':
-   app.run(debug=True, host='0.0.0.0')
+#    app.run(debug=True, host='0.0.0.0')
+    from waitress import serve
+    serve(app, port=5000)
 #    app.run(debug=False)

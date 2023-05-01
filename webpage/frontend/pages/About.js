@@ -18,7 +18,7 @@ export default function About() {
       <Header />
       <div className={styles.main}>
         <h2 className={styles.subtitle}> Abstract: </h2>
-        <h2 className={styles.text}>
+        <p className={styles.text}>
           This project's goal is to automate the complete blood count tests (CBC tests) and peripheral blood smears.
           CBCs and peripheral blood smears are used to determine the cellular components of the blood in order to
           detect abnormalities and determine diseases in case there are any.  The process of counting the cells
@@ -33,9 +33,9 @@ export default function About() {
           anemia, thrombocytopenia, basophilia, eosinophilia, and leukemia.  The first YOLO model (CBC portion)
           yielded an F1 score of 0.85.  The second YOLO model (specific white blood cells and abnormal red blood
           cells) yielded an F1 score of 0.75.
-        </h2>
+        </p>
         <h2 className={styles.subtitle}> Introduction: </h2>
-        <h2 className={styles.text}>
+        <p className={styles.text}>
           Complete blood counts (CBCs) are one of the most commonly ordered lab
           tests. They are critical in narrowing down possible diagnoses. When
           the results of a CBC are abnormal, a peripheral blood smear is usually
@@ -43,7 +43,7 @@ export default function About() {
           subject to human error. In addition to this, it can take several days
           to receive the results and even longer in rural and developing areas.
           In order to find an alternative, in this project we aim to:
-        </h2>
+        </p>
         <ul className={styles.text}>
           <li>Automate a Complete Blood Count</li>
         </ul>
@@ -59,7 +59,7 @@ export default function About() {
         </h2>
 
         <img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/Milestone1_AutoCBC/runs/detect/train15/confusion_matrix.png?raw=true" alt="Blood Count" className={styles.center}></img>
-        <h2 className={styles.text}>
+        <p className={styles.text}>
           The first image is a confusion matrix with WBC, RBC, and Platelets.
           The F1 score gotten from the 1st model was 0.85.
           The first model have true positive values for red blood cells (RBCs),
@@ -67,9 +67,9 @@ export default function About() {
           respectively.  The RBCs show false positives of 0.98 which indicates that 
           the background is picking up fake red blood cells. This could potentially
           be dealt with by including images other than blood smears.
-        </h2>
+        </p>
         <img src="https://github.com/RitvikPrabhu/HemeAI/blob/master/Milestone2_DiseaseDetect/YOLOv8/runs/detect/train3/val/confusion_matrix.png?raw=true" alt="Abnormal WBC and RBC" className={styles.center}></img>
-        <h2 className={styles.text}>
+        <p className={styles.text}>
           The second image is a confusion matrix for specific WBCs and abnormal RBCs.
           The F1 score gotten from the 2nd model was 0.75.
           The second model have true positive values for abnormal red blood cells
@@ -78,7 +78,7 @@ export default function About() {
           0.48, 0.71, 0.96, 0.96, 0.86, 0.90, 0.97, 0.92, 0.33, and 0.70 respectively.
           From the confusion matrix the segmented neutrophil, neutrophil, and band
           neutrophil were showing some correlation with each other.
-        </h2>
+        </p>
 
         <h2 className={styles.subtitle}>
           {" "}

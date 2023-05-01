@@ -6,3 +6,4 @@ pandas
 pycocotools
 opencv-python
 requests
+waitress

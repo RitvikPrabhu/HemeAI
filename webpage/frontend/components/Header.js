@@ -11,6 +11,7 @@ function Header() {
         variant="text"
         onClick={() => router.push("/")}
         className={styles.button}
+        // style={{ color: "white" }}
       >
         Home
       </Button>

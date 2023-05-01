@@ -49,6 +49,7 @@ WORKDIR /app/
 COPY ./webpage/backend /app/backend
 WORKDIR /app/frontend
 COPY webpage/frontend/*.json webpage/frontend/*.js webpage/frontend/*.pt ./
+COPY webpage/frontend/public ./public
 RUN npm install --production && rm -rf /root/.npm
 COPY --from=frontend-build /usr/local/app/.next ./.next
 EXPOSE 3000
