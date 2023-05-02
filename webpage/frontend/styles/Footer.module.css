@@ -1,3 +1,5 @@
+/* All code in this file was written by Amrita Ballurkar */
+
 .main {
   display: flex;
   flex-direction: row;
@@ -7,5 +9,5 @@
   color: white;
   text-align: center;
   margin-top: 10px;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }

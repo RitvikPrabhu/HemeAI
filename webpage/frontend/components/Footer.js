@@ -2,6 +2,7 @@ import React from "react";
 import styles from "@/styles/Footer.module.css";
 import { useRouter } from "next/router";
 
+// All code in this file was written by Amrita Ballurkar
 function Footer() {
   const router = useRouter();
   return (

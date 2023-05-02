@@ -1,9 +1,11 @@
+/* All code in this file was written by Amrita Ballurkar */
+
 .main {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 7vh;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   color: white;
 }
 

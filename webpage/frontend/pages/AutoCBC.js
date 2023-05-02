@@ -12,8 +12,8 @@ import JSZip from "jszip";
 import { useRouter } from "next/router";
 import AbnormalResultsPopup from "@/components/Popup";
 
+// All code in this file was written by Amrita Ballurkar
 // creates AutoCBC page
-
 function AutoCBC() {
   // declares variables
   const API_URL = "http://localhost:5000";
@@ -168,7 +168,7 @@ function AutoCBC() {
   };
   function handleButtonClick(event) {
     console.log(typeof images);
-    
+
     router.push({
       pathname: "/DiseaseDetection",
     });

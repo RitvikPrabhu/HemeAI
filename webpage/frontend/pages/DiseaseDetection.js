@@ -11,6 +11,7 @@ import axios, { AxiosResponse } from "axios";
 import JSZip from "jszip";
 import AbnormalResultsPopup from "@/components/Popup";
 
+// All code in this file was written by Amrita Ballurkar
 //creates Disease Detection page
 function DiseaseDetection() {
   // declares variables

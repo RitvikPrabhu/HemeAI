@@ -1,28 +1,30 @@
+/* All code in this file was written by Amrita Ballurkar */
+
 .background {
   background-image: url("/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%; /* Set the height to 100% of the viewport height */
-  }
-  
-  .main {
+}
+
+.main {
   height: 86vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  }
-  
-  .title {
+}
+
+.title {
   color: white;
   font-size: 9vw; /* Use viewport units for font size */
   font-weight: 700;
   margin-top: 10vh;
-  font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .subtitle {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.subtitle {
   color: white;
   font-size: 2.5vw; /* Use viewport units for font size */
   font-weight: 700;
-  font-family: 'Segoe UI', sans-serif;
-  }
+  font-family: "Segoe UI", sans-serif;
+}

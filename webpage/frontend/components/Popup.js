@@ -4,6 +4,7 @@ import { Button, Paper, Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useRouter } from "next/router";
 
+// All code in this file was written by Amrita Ballurkar
 const PopupContainer = styled(Paper)({
   position: "absolute",
   top: "50%",

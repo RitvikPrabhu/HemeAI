@@ -3,6 +3,7 @@ import styles from "@/styles/Header.module.css";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 
+// All code in this file was written by Amrita Ballurkar
 function Header() {
   const router = useRouter();
   return (

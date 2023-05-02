@@ -1,5 +1,6 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Head, Main, NextScript } from "next/document";
 
+// All code in this file was written by Amrita Ballurkar
 export default function Document() {
   return (
     <Html lang="en">
@@ -9,5 +10,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  )
+  );
 }
