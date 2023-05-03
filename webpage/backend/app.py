@@ -50,11 +50,15 @@ def disease_get_metrics():
         image_results = model.predict(image, stream=True)
         
         print(model.names[0])
+
+        # counts each boundary box and the type of specific WBC and abnormal RBC from an image.
         
         for r in image_results:
             for c in r.boxes.cls:
                 if model.names[int(c)] in disease_blood_count.keys():
                     disease_blood_count[model.names[int(c)]] += 1
+
+    # This parts find the ratio of specific WBC and abnormal RBC from a specific image inputted.
     
     neutrophil_ratio = 0
     eosinophil_ratio = 0
@@ -90,6 +94,8 @@ def disease_get_metrics():
                "erythroblasts": erythroblast_ratio * 100,
                "abnormal_rbc": abnormal_rbc_ratio * 100}
     return json.dumps(results)
+
+# Deals with the disease detection portion, specifically the ratio of different diseased cells.
 
 @app.route('/metrics-and-images-disease', methods=['POST'])
 def disease_determine():
@@ -230,6 +236,8 @@ def disease_get_image():
 
     zipped_buffer.seek(0)  # move the pointer to the beginning of the buffer
     return send_file(zipped_buffer, mimetype='application/zip', as_attachment=True, download_name='rendered_images.zip')
+
+# Gives counts for specific WBC and abnormal RBC in disease detection portion of code.
 
 @app.route('/metrics-and-images-disease', methods=['POST'])
 def disease_get_metrics_and_images():
