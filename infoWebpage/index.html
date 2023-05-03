@@ -1,44 +1,49 @@
+<!-- This file gives the static webpage that has the final presentation, code repository location, and final paper.
+     This file also has our project Abstract, Introduction, Results, and Conclusion as well as instructions to demo
+     our project in a dynamic webpage that was not hosted.-->
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Group 3: HemeAI</title>
+    <title>Group 3: HemeAI</title>
 
     <style type="text/css">
-        body{
+        body {
             margin: 0;
             font-family: 'Didact Gothic', sans-serif;
         }
-        .wrapper{
+
+        .wrapper {
             width: 100%;
             height: 100vh;
-
-            overflow-y:scroll;
+            overflow-y: scroll;
             scroll-snap-type: y mandatory;
         }
 
-        .content{
+        .content {
             max-width: 800px;
         }
-        section{
+
+        section {
             width: 100%;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            
             scroll-snap-align: start;
         }
-        .one{
+
+        .one {
             background-color: rgb(235, 145, 145);
         }
-        h1{
+
+        h1 {
             font-size: 150px;
             line-height: 150 px;
             color: aliceblue;
             margin: 0;
         }
 
-        .title{
+        .title {
             font-size: 100px;
             line-height: 150 px;
             color: aliceblue;
@@ -47,56 +52,65 @@
             top: 0;
             left: 0;
         }
-        h2{
+
+        h2 {
             font-size: 80px;
             color: aliceblue;
         }
-        .subheading{
+
+        .subheading {
             color: aliceblue;
             font-size: 24px;
             justify-content: center;
         }
 
-        .section-content, ul{
+        .section-content, ul {
             color: aliceblue;
             font-size: 24px;
             justify-content: center;
             align-items: center;
         }
 
-        .abstract{
-            background-color: rgb(235, 145, 145);
-            position: relative;
-        }
-        .intoduction{
-            background-color: rgb(235, 145, 145);
-            position: relative;
-        }
-        .conclusion{
-            background-color: rgb(235, 145, 145);
-            position: relative;
-        }
-        .selfDemo{
+        .abstract {
             background-color: rgb(235, 145, 145);
             position: relative;
         }
 
-        .finalPresentation{
+        .intoduction {
             background-color: rgb(235, 145, 145);
             position: relative;
         }
-        .finalPaper{
+
+        .conclusion {
             background-color: rgb(235, 145, 145);
             position: relative;
         }
-        .demo{
+
+        .selfDemo {
             background-color: rgb(235, 145, 145);
             position: relative;
         }
-        .results{
+
+        .finalPresentation {
             background-color: rgb(235, 145, 145);
             position: relative;
         }
+
+        .finalPaper {
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+
+        .demo {
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+
+        .results {
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+
         .logos-container {
             display: flex;
             justify-content: space-between;
@@ -110,14 +124,13 @@
             align-items: center;
             margin: 20px;
         }
-        .links{
+
+        .links {
             background-color: rgb(235, 145, 145);
             position: relative;
         }
-
-        
     </style>
-    
+
 </head>
 <body>
     <div class="wrapper">
@@ -190,29 +203,29 @@
         <section class="results">
             <div class="title">Results: Automatic CBC</div>
             <div class="content" style="margin-top: 100px;">
-                
-                    <img src="confusion_matrix_autoCBC.png" alt="Confusion Matrix after training the YOLOv8 model for CBC" style="width: 100%; height: auto; border: solid 1px #000">
-                
-                  
-                    <p class="section-content">
-                        From the above figure, we can conclude that the model performs really well. The ratio of true positives for RBC, WBC, and platelets is 0.80, 0.98, and 0.92 respectively. However, we are alarmed by the False Positive Ratio for Background, since the model predicts RBC for the background relatively frequently (ratio = 0.94). The F1 score of this model 0.85.
-                    </p>
-                  
+
+                <img src="confusion_matrix_autoCBC.png" alt="Confusion Matrix after training the YOLOv8 model for CBC" style="width: 100%; height: auto; border: solid 1px #000">
+
+
+                <p class="section-content">
+                    From the above figure, we can conclude that the model performs really well. The ratio of true positives for RBC, WBC, and platelets is 0.80, 0.98, and 0.92 respectively. However, we are alarmed by the False Positive Ratio for Background, since the model predicts RBC for the background relatively frequently (ratio = 0.94). The F1 score of this model 0.85.
+                </p>
+
             </div>
         </section>
 
         <section class="results">
             <div class="title">Results: Disease Detection</div>
             <div class="content" style="margin-top: 100px;">
-                
-                    <img src="confusion_matrix_diseaseDetect.png" alt="Confusion Matrix after training the YOLOv8 model for CBC" style="width: 85%; height: auto; border: solid 1px #000">
-                
-                  
-                    <p class="section-content">
-                        From the above figure, we can conclude that the model performs really well. The ratio of the true positives  for abnormal red blood cells (abnormal RBCs), band neutrophil, basophil, eosinophil, erythroblast,
-                        lymphocyte, monocyte, myelocyte, neutrophil, and segmented neutrophil are 0.48, 0.71, 0.96, 0.96, 0.86, 0.90, 0.97, 0.92, 0.33, and 0.70 respectively. However, we are alarmed by the False Positive Ratio for Background, since the model predicts RBC for the background relatively frequently (ratio = 0.94). The F1 score of this model 0.75.
-                    </p>
-                  
+
+                <img src="confusion_matrix_diseaseDetect.png" alt="Confusion Matrix after training the YOLOv8 model for CBC" style="width: 85%; height: auto; border: solid 1px #000">
+
+
+                <p class="section-content">
+                    From the above figure, we can conclude that the model performs really well. The ratio of the true positives  for abnormal red blood cells (abnormal RBCs), band neutrophil, basophil, eosinophil, erythroblast,
+                    lymphocyte, monocyte, myelocyte, neutrophil, and segmented neutrophil are 0.48, 0.71, 0.96, 0.96, 0.86, 0.90, 0.97, 0.92, 0.33, and 0.70 respectively. However, we are alarmed by the False Positive Ratio for Background, since the model predicts RBC for the background relatively frequently (ratio = 0.94). The F1 score of this model 0.75.
+                </p>
+
             </div>
         </section>
 
@@ -220,7 +233,7 @@
             <div class="title">Presentation</div>
             <div class="content">
                 <p class="section-content">
-                    
+
                     <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTpiGIHS31EFvA_RIQv-pmAeU6QP3TP-739hqmF6JjeeK1pDLS-Zj0CnR0GQ_1VEza5OjOOrLQ3CTaI/embed?start=true&loop=true&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="padding-top: 10px;"></iframe>
                 </p>
             </div>
@@ -253,7 +266,7 @@
                     <ul>
                         <li>Visit the <a href="https://github.com/RitvikPrabhu/HemeAI" target="_blank" style="color: rgb(117, 28, 0);">Github Link</a> and clone the repository</li>
                         <li>Follow the steps under "Steps to run the project" in README.md to start the application</li>
-                        <li>At this point, ensure that you have a set of blood samples to test the model on. A sample dataset for the CBC model can be found on this <a href="https://drive.google.com/drive/folders/1sqDo34BS-4rtZCVRsnlPXNbNHZyfJGXK?usp=sharing" target="_blank" style="color: rgb(117, 28, 0);">Drive</a>. Additionally, a sample dataset for the Disease Detection model can be found on this <a href="https://drive.google.com/drive/folders/1-VIsPx2MTygUmHUIBAHEHXTzVkwMH22o?usp=sharing" target="_blank"  style="color: rgb(117, 28, 0);">Drive</a></li>
+                        <li>At this point, ensure that you have a set of blood samples to test the model on. A sample dataset for the CBC model can be found on this <a href="https://drive.google.com/drive/folders/1sqDo34BS-4rtZCVRsnlPXNbNHZyfJGXK?usp=sharing" target="_blank" style="color: rgb(117, 28, 0);">Drive</a>. Additionally, a sample dataset for the Disease Detection model can be found on this <a href="https://drive.google.com/drive/folders/1-VIsPx2MTygUmHUIBAHEHXTzVkwMH22o?usp=sharing" target="_blank" style="color: rgb(117, 28, 0);">Drive</a></li>
                         <li>Navigate to the AutoCBC page through the header</li>
                         <li>Click Upload Image and select all blood smear images you would like to run the CBC model on</li>
                         <li>
@@ -277,28 +290,28 @@
         <section class="links">
             <div class="title">Important Links</div>
             <div class="content">
-              <div class="logos-container">
-                <div class="logo">
-                  <a href="https://github.com/RitvikPrabhu/HemeAI" target="_blank" style="text-decoration: none;">
-                    <img src="github_logo.png" alt="GitHub logo" style="width: 65%; height: auto;">
-                    <p class="section-content">Code Base</p>
-                  </a>
+                <div class="logos-container">
+                    <div class="logo">
+                        <a href="https://github.com/RitvikPrabhu/HemeAI" target="_blank" style="text-decoration: none;">
+                            <img src="github_logo.png" alt="GitHub logo" style="width: 65%; height: auto;">
+                            <p class="section-content">Code Base</p>
+                        </a>
+                    </div>
+                    <div class="logo">
+                        <a href="finalPaper.pdf" target="_blank" style="text-decoration: none;">
+                            <img src="pdf_logo.png" alt="PDF logo" style="width: 50%; height: auto;">
+                            <p class="section-content">Research Paper</p>
+                        </a>
+                    </div>
+                    <div class="logo">
+                        <a href="https://docs.google.com/presentation/d/e/2PACX-1vTpiGIHS31EFvA_RIQv-pmAeU6QP3TP-739hqmF6JjeeK1pDLS-Zj0CnR0GQ_1VEza5OjOOrLQ3CTaI/pub?start=true&loop=true&delayms=3000" target="_blank" style="text-decoration: none;">
+                            <img src="slides_logo.png" alt="Google Slides logo" style="width: 65%; height: auto;">
+                            <p class="section-content">Project Presentation</p>
+                        </a>
+                    </div>
                 </div>
-                <div class="logo">
-                  <a href="finalPaper.pdf" target="_blank" style="text-decoration: none;">
-                    <img src="pdf_logo.png" alt="PDF logo" style="width: 50%; height: auto;">
-                    <p class="section-content">Research Paper</p>
-                  </a>
-                </div>
-                <div class="logo">
-                  <a href="https://docs.google.com/presentation/d/e/2PACX-1vTpiGIHS31EFvA_RIQv-pmAeU6QP3TP-739hqmF6JjeeK1pDLS-Zj0CnR0GQ_1VEza5OjOOrLQ3CTaI/pub?start=true&loop=true&delayms=3000" target="_blank" style="text-decoration: none;">
-                    <img src="slides_logo.png" alt="Google Slides logo" style="width: 65%; height: auto;">
-                    <p class="section-content">Project Presentation</p>
-                  </a>
-                </div>
-              </div>
             </div>
-          </section>
+        </section>
     </div>
 </body>
 </html>
