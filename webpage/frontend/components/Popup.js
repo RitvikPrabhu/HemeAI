@@ -5,6 +5,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useRouter } from "next/router";
 
 // All code in this file was written by Amrita Ballurkar
+// Creates a popup for detecting abnormalities or diseases.
 const PopupContainer = styled(Paper)({
   position: "absolute",
   top: "50%",

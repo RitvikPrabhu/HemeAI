@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 
 // All code in this file was written by Amrita Ballurkar
+// Creates the header containing AutoCBC, DiseaseDetection, and Home page
 function Header() {
   const router = useRouter();
   return (
