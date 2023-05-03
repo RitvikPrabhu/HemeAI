@@ -1,9 +1,0 @@
-ultralyticsplus==0.0.24
-ultralytics==8.0.23
-Flask==2.2.3
-flask_cors==3.0.10
-pandas
-pycocotools
-opencv-python
-requests
-waitress
