@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Medical Blood Sample Project</title>
+
+    <style type="text/css">
+        body{
+            margin: 0;
+            font-family: 'Didact Gothic', sans-serif;
+        }
+        .wrapper{
+            width: 100%;
+            height: 100vh;
+
+            overflow-y:scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .content{
+            max-width: 800px;
+        }
+        section{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            scroll-snap-align: start;
+        }
+        .one{
+            background-color: rgb(235, 145, 145);
+        }
+        h1{
+            font-size: 150px;
+            line-height: 150 px;
+            color: aliceblue;
+            margin: 0;
+        }
+
+        .title{
+            font-size: 100px;
+            line-height: 150 px;
+            color: aliceblue;
+            margin: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        h2{
+            font-size: 80px;
+            color: aliceblue;
+        }
+        .subheading{
+            color: aliceblue;
+            font-size: 24px;
+            justify-content: center;
+        }
+
+        .section-content, ul{
+            color: aliceblue;
+            font-size: 24px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .abstract{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+        .intoduction{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+        .conclusion{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+        .selfDemo{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+
+        .finalPresentation{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+        .finalPaper{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+        .demo{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+        .results{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+        .logos-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            /* margin: 0 10px; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .links{
+            background-color: rgb(235, 145, 145);
+            position: relative;
+        }
+
+        
+    </style>
+    
+</head>
+<body>
+    <div class="wrapper">
+        <section class="one">
+            <div class="content">
+                <h1>HemeAI</h1>
+                <p class="subheading">
+                    A machine learning approach to hematological analysis
+                </p>
+            </div>
+        </section>
+        <section class="abstract">
+            <div class="title">Abstract</div>
+            <div class="content">
+                <p class="section-content">
+                    This project's goal is to automate the complete blood count tests (CBC
+                    tests) and peripheral blood smears. CBCs and peripheral blood smears
+                    are used to determine the cellular components of the blood in order to
+                    detect abnormalities and determine diseases in case there are any. The
+                    process of counting the cells and reviewing them after an abnormal CBC
+                    can have a long wait time and is prone to human error. We are using
+                    YOLO (You Only Look Once), a computer vision model, to speed this
+                    process up by both performing the CBC and classifying each cell. This
+                    project was split into two where one YOLO model was used to identify
+                    and count white blood cells, red blood cells, and platelets, for the
+                    CBC portion and another YOLO model detects specific white blood cells
+                    and abnormal red blood cells. The specific white blood cells being
+                    detected for the second YOLO model were eosinophils, basophils,
+                    myelocytes, neutrophils, monocytes, lymphocytes, erythroblasts, and
+                    abnormal red blood cells. These different types of specific white
+                    blood cells and abnormal red blood cells are used to diagnose five
+                    diseases which are anemia, thrombocytopenia, basophilia, eosinophilia,
+                    and leukemia. The first YOLO model (CBC portion) yielded an F1 score
+                    of 0.85. The second YOLO model (specific white blood cells and
+                    abnormal red blood cells) yielded an F1 score of 0.75.
+                </p>
+            </div>
+        </section>
+        <section class="intoduction">
+            <div class="title">Intoduction</div>
+            <div class="content">
+                <p class="section-content">
+                    Complete blood counts (CBCs) are one of the most commonly ordered lab
+                    tests. They are critical in narrowing down possible diagnoses. When
+                    the results of a CBC are abnormal, a peripheral blood smear is usually
+                    conducted. Peripheral blood smears are manually conducted and are
+                    subject to human error. In addition to this, it can take several days
+                    to receive the results and even longer in rural and developing areas.
+                    In order to find an alternative, in this project we aim to:
+
+                    <ul>
+                        <li>Automate a Complete Blood Count</li>
+                        <li>Automate a peripheral blood smear</li>
+                        <li>Make a preliminary diagnosis based on the results</li>
+                    </ul>
+                </p>
+            </div>
+        </section>
+
+        <section class="demo">
+            <div class="title">Project Demo</div>
+            <div class="content">
+                <p class="section-content">
+                    <iframe width="1000" height="550" src="https://www.youtube.com/embed/Pi4Suym2tMM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+                </p>
+            </div>
+        </section>
+
+        <section class="results">
+            <div class="title">Results: Automatic CBC</div>
+            <div class="content" style="margin-top: 100px;">
+                
+                    <img src="confusion_matrix_autoCBC.png" alt="Confusion Matrix after training the YOLOv8 model for CBC" style="width: 100%; height: auto; border: solid 1px #000">
+                
+                  
+                    <p class="section-content">
+                        From the above figure, we can conclude that the model performs really well. The ratio of true positives for RBC, WBC, and platelets is 0.80, 0.98, and 0.92 respectively. However, we are alarmed by the False Positive Ratio for Background, since the model predicts RBC for the background relatively frequently (ratio = 0.94). The F1 score of this model 0.85.
+                    </p>
+                  
+            </div>
+        </section>
+
+        <section class="results">
+            <div class="title">Results: Disease Detection</div>
+            <div class="content" style="margin-top: 100px;">
+                
+                    <img src="confusion_matrix_diseaseDetect.png" alt="Confusion Matrix after training the YOLOv8 model for CBC" style="width: 85%; height: auto; border: solid 1px #000">
+                
+                  
+                    <p class="section-content">
+                        From the above figure, we can conclude that the model performs really well. The ratio of the true positives  for abnormal red blood cells (abnormal RBCs), band neutrophil, basophil, eosinophil, erythroblast,
+                        lymphocyte, monocyte, myelocyte, neutrophil, and segmented neutrophil are 0.48, 0.71, 0.96, 0.96, 0.86, 0.90, 0.97, 0.92, 0.33, and 0.70 respectively. However, we are alarmed by the False Positive Ratio for Background, since the model predicts RBC for the background relatively frequently (ratio = 0.94). The F1 score of this model 0.75.
+                    </p>
+                  
+            </div>
+        </section>
+
+        <section class="finalPresentation">
+            <div class="title">Presentation</div>
+            <div class="content">
+                <p class="section-content">
+                    
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTpiGIHS31EFvA_RIQv-pmAeU6QP3TP-739hqmF6JjeeK1pDLS-Zj0CnR0GQ_1VEza5OjOOrLQ3CTaI/embed?start=true&loop=true&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="padding-top: 10px;"></iframe>
+                </p>
+            </div>
+        </section>
+
+        <section class="finalPaper">
+            <div class="title">Research Paper</div>
+            <div class="content">
+                <p class="section-content">
+                    <embed src="finalPaper.pdf" width="800" height="650" type='application/pdf' style="border: solid 1px #000;">
+                </p>
+            </div>
+        </section>
+
+        <section class="conclusion">
+            <div class="title">Conclusion</div>
+            <div class="content">
+                <p class="section-content">
+                    YOLO has the potential to improve the accuracy and efficiency/turn-around time of CBCs and peripheral blood smears. The proposed approach involves using YOLO to classify the different types of cells within an image of blood cells, and then determine what disease the patient may have if abnormalities are found in the ratios between RBC, WBC, and Platelets. This can significantly reduce the time necessary to conduct a peripheral blood smear as that is subject to human error and may take several days to complete and deliver. The results from this approach have been promising. The first YOLO model yielded an F1 score of 0.85, while the second model yielded an F1 score of 0.75.
+                </p>
+            </div>
+        </section>
+
+        <section class="selfDemo">
+            <div class="title">Try it out!</div>
+            <div class="content">
+                <p class="section-content">
+                    Try this project out for yourself! Follow the steps below:
+
+                    <ul>
+                        <li>Visit the <a href="https://github.com/RitvikPrabhu/HemeAI" target="_blank" style="color: rgb(117, 28, 0);">Github Link</a> and clone the repository</li>
+                        <li>Follow the steps under "Steps to run the project" in README.md to start the application</li>
+                        <li>At this point, ensure that you have a set of blood samples to test the model on. A sample dataset for the CBC model can be found on this <a href="https://drive.google.com/drive/folders/1sqDo34BS-4rtZCVRsnlPXNbNHZyfJGXK?usp=sharing" target="_blank" style="color: rgb(117, 28, 0);">Drive</a>. Additionally, a sample dataset for the Disease Detection model can be found on this <a href="https://drive.google.com/drive/folders/1-VIsPx2MTygUmHUIBAHEHXTzVkwMH22o?usp=sharing" target="_blank"  style="color: rgb(117, 28, 0);">Drive</a></li>
+                        <li>Navigate to the AutoCBC page through the header</li>
+                        <li>Click Upload Image and select all blood smear images you would like to run the CBC model on</li>
+                        <li>
+                            Once you have added enough images click the process image button
+                        </li>
+                        <li>
+                            If there is an abnormal result in your CBC you will be prompted with a button to the disease detection portion. If any of the components do not load, there might have been an issue with the CORS settings. Simply refresh the page and reupload the images.
+                        </li>
+                        <li>
+                            Click Upload Image and select all blood smear images that you would like to run the Disease Detection model on
+                        </li>
+                        <li>
+                            The page will prompt with the potential disease you might have. If any of the components do not load, there might have been an issue with the CORS settings. Simply refresh the page and reupload the images.
+                        </li>
+                    </ul>
+
+                </p>
+            </div>
+        </section>
+
+        <section class="links">
+            <div class="title">Important Links</div>
+            <div class="content">
+              <div class="logos-container">
+                <div class="logo">
+                  <a href="https://github.com/RitvikPrabhu/HemeAI" target="_blank" style="text-decoration: none;">
+                    <img src="github_logo.png" alt="GitHub logo" style="width: 65%; height: auto;">
+                    <p class="section-content">Code Base</p>
+                  </a>
+                </div>
+                <div class="logo">
+                  <a href="finalPaper.pdf" target="_blank" style="text-decoration: none;">
+                    <img src="pdf_logo.png" alt="PDF logo" style="width: 50%; height: auto;">
+                    <p class="section-content">Research Paper</p>
+                  </a>
+                </div>
+                <div class="logo">
+                  <a href="https://docs.google.com/presentation/d/e/2PACX-1vTpiGIHS31EFvA_RIQv-pmAeU6QP3TP-739hqmF6JjeeK1pDLS-Zj0CnR0GQ_1VEza5OjOOrLQ3CTaI/pub?start=true&loop=true&delayms=3000" target="_blank" style="text-decoration: none;">
+                    <img src="slides_logo.png" alt="Google Slides logo" style="width: 65%; height: auto;">
+                    <p class="section-content">Project Presentation</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+    </div>
+</body>
+</html>
